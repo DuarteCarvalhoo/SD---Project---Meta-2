@@ -40,7 +40,6 @@
 
 import java.io.*;
 import java.net.*;
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;

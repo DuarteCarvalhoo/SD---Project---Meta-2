@@ -2483,7 +2483,7 @@ public class MulticastServer extends Thread implements Serializable {
     private void receiveMusic(Socket socket, String musicName) throws IOException {
         byte[] b= new byte[1024];
         InputStream is = socket.getInputStream();
-        FileOutputStream fOutStream = new FileOutputStream("./musicasServer/" + musicName);
+        FileOutputStream fOutStream = new FileOutputStream("musicasServer/" + musicName);
         BufferedOutputStream bOutStream = new BufferedOutputStream(fOutStream);
 
         int aux= 0;

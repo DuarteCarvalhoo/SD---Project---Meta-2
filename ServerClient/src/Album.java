@@ -1,5 +1,3 @@
-import sun.plugin.javascript.navig.Array;
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -55,7 +53,7 @@ public class Album implements Serializable{
         else {
             int i = 1;
             for (Music music : musics) {
-                finalString += i+". ";
+                finalString += i+ " ";
                 finalString += music.toString();
                 finalString += "\n";
                 i++;
@@ -72,7 +70,7 @@ public class Album implements Serializable{
         else {
             int i = 1;
             for (Critic critic : critics) {
-                finalString += i+". ";
+                finalString += i+ " ";
                 finalString += critic.toString();
                 finalString += "\n";
                 i++;
