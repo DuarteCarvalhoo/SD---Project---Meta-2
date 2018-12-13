@@ -51,6 +51,7 @@ public class Server implements Hello {
     private String MULTICAST_ADDRESS = "224.0.224.0";
     private int PORT = 4321;
     private ArrayList<User> userOnlines = new ArrayList<>();
+    private String Username = null, Password = null;
 
     public static void main(String[] args){
         ///////////CONEXÃO DO SERVER///////////
@@ -1118,6 +1119,16 @@ public class Server implements Hello {
         return null;
     }
 
+    public String register() throws Exception {
+
+        return "success";
+    }
+
+    public void setPassword(String password) {
+    }
+
+    public void setUsername(String username) {
+    }
 }
 
 
