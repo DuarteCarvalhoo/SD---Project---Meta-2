@@ -31,6 +31,9 @@
         <result>/register.jsp</result>
     </action>
 
+    <action name="login">
+        <result>/login.jsp</result>
+    </action>
 
     <action name="register" class="action.Register" method="execute">
         <result name="success">index.jsp</result>
@@ -44,6 +47,10 @@
     </action>
 
     <action name="critic" class="Server" method="critic">
+        <result name="success">critic.jsp</result>
+    </action>
+
+    <action name="checkLogin" class="action.Login" method="execute">
         <result name="success">critic.jsp</result>
     </action>
 
