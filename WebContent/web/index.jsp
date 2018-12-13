@@ -1,16 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fabio
-  Date: 13/12/2018
-  Time: 11:50
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Dropmusic</title>
   </head>
   <body>
-  FUCK SD!
+  Welcome to Dropmusic!
+  <p><a href="<s:url action="register" />">Sign up</a></p>
+  <p><a href="<s:url action="index" />">Login</a></p>
   </body>
 </html>
