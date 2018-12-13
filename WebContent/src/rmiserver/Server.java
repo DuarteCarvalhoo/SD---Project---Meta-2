@@ -1,4 +1,4 @@
-/*
+package rmiserver;/*
  * Copyright (c) 2004, Oracle and/or its affiliates. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -37,13 +37,18 @@
  */
 
 
-
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
-import java.rmi.registry.Registry;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
@@ -55,9 +60,8 @@ public class Server implements Hello {
 
     public static void main(String[] args){
         ///////////CONEXÃO DO SERVER///////////
-        String ip = readIPFile();
 
-        System.setProperty("java.rmi.server.hostname", ip);
+        System.setProperty("java.rmi.server.hostname", "10.42.0.43");
         int aux = 0;
         while (aux < 1) {
             try {
@@ -165,7 +169,14 @@ public class Server implements Hello {
             socket.send(packet);
             //recebe do multicast
             String msg = receiveMulticast();
-            if (msg != null) return msg;
+            switch (msg){
+                case "type|usernameUsed":
+                    break;
+                case "type|registComplete":
+                    return "sucess";
+                default:
+                    return "somethingwrong";
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
