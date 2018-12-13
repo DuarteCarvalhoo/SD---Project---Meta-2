@@ -84,7 +84,7 @@ public class MulticastServer extends Thread implements Serializable {
                             username = registerUsernameParts[1].trim();
                             password = registerPasswordParts[1].trim();
                         }catch (Exception e){
-                            connection.close();
+                                connection.close();
                             return;
                         }
                         if(userDatabaseEmpty()){
@@ -109,6 +109,7 @@ public class MulticastServer extends Thread implements Serializable {
                                     sendMsg("type|usernameUsed");
                                     System.out.println("Username already used.");
                                 } else {
+                                    connection.setAutoCommit(false);
                                     PreparedStatement stmt = connection.prepareStatement("INSERT INTO utilizador(id,username,password,iseditor)" +
                                             "VALUES (DEFAULT,?,?,false)");
                                     stmt.setString(1,u.getUsername());
@@ -121,7 +122,9 @@ public class MulticastServer extends Thread implements Serializable {
                                     sendMsg("type|registComplete");
                                 }
                             } catch (org.postgresql.util.PSQLException e){
+                                connection.close();
                                 System.out.println("Something went wrong.");
+                                System.out.println(e.getMessage());
                                 sendMsg("type|somethingWentWrong");
                             }
                         }

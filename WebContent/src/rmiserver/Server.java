@@ -61,7 +61,7 @@ public class Server implements Hello {
     public static void main(String[] args){
         ///////////CONEXÃO DO SERVER///////////
 
-        System.setProperty("java.rmi.server.hostname", "10.42.0.43");
+        /*System.setProperty("java.rmi.server.hostname", "10.42.0.43");*/
         int aux = 0;
         while (aux < 1) {
             try {
@@ -153,16 +153,15 @@ public class Server implements Hello {
         return "ups";
     }
 
-    public String checkRegister(String register) {
+    public String checkRegister(String username, String password) {
         System.out.println("Está no registo.");
-        String[] newRegisto = register.split("-");
         MulticastSocket socket = null;
 
         try {
             socket = new MulticastSocket();
             InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
             socket.joinGroup(group);
-            String aux = "type|register;username|" + newRegisto[0] + ";password|" + newRegisto[1]; //protocol
+            String aux = "type|register;username|" + username + ";password|" + password; //protocol
             System.out.println(aux); //ver como ficou
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
@@ -171,11 +170,11 @@ public class Server implements Hello {
             String msg = receiveMulticast();
             switch (msg){
                 case "type|usernameUsed":
-                    break;
+                    return "usernameUsed";
                 case "type|registComplete":
-                    return "sucess";
+                    return "Success";
                 default:
-                    return "somethingwrong";
+                    return "somethingWentWrong";
             }
         } catch (IOException e) {
             e.printStackTrace();

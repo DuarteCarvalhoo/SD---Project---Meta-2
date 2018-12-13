@@ -34,7 +34,9 @@
 
     <action name="register" class="action.Register" method="execute">
         <result name="success">index.jsp</result>
-        <result name="login">index.jsp</result>
+        <result name="invalidCredentials">index.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="usernameUsed">index.jsp</result>
     </action>
 
     </package>
