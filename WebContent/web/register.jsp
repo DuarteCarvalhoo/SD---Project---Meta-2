@@ -6,11 +6,9 @@
 </head>
 <body>
     <s:form action="register" method="post">
-        <s:text name="Username:" />
-        <s:textfield name="username" /><br><br>
-        <s:text name="Password:" />
-        <s:password name="password" /><br>
-        <s:submit />
+        <s:textfield name="username" label="Username:"/><br><br>
+        <s:password name="password" label="Password:"/><br>
+        <s:submit/>
     </s:form>
     <p><a href="<s:url action="menuPrincipal" />">Menu</a></p>
     <p><a href="<s:url action="index" />">Back</a></p>
