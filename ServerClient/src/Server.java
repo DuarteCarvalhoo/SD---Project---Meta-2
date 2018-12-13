@@ -1129,6 +1129,14 @@ public class Server implements Hello {
 
     public void setUsername(String username) {
     }
+
+    public String menuPrincipal() throws Exception{
+        return "success";
+    }
+
+    public String critic() throws Exception{
+        return "success";
+    }
 }
 
 
