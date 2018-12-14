@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Did you mean one of these?</h2>
-<a>Musics: ${artists}</a><br><br>
+<a>Artists: ${artists}</a><br><br>
 <s:form action="searchArtist" method="post">
     <s:text name="Choose one of the above:" />
     <s:textfield name="artistName"/><br><br>

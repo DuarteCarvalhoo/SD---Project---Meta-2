@@ -102,4 +102,28 @@ public class Bean {
         }
         return response;
     }
+
+    public String showMusicsBySongwriter(String name){
+        String response = "";
+        try{
+            response = rmi.showSongwriterMusics(name);
+            return response;
+        }catch(RemoteException e){
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public String showAlbumByName(String name){
+        String response = "";
+        try{
+            response = rmi.showAlbum(name);
+            return response;
+        }catch(RemoteException e){
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
 }

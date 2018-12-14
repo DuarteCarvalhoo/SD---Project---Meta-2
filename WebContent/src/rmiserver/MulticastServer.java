@@ -1532,7 +1532,7 @@ public class MulticastServer extends Thread implements Serializable {
                         Album album = new Album();
                         if(albumDatabaseEmpty()){
                             connection.close();
-                            sendMsg("type|showAlbumFailed");
+                            sendMsg("type|albumDatabaseEmpty");
                             System.out.println("ERROR: No albuns on database.");
                         }
                         else {

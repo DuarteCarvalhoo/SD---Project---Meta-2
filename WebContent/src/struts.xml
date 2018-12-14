@@ -66,8 +66,34 @@
         <result>searchMusicComposerInfo.jsp</result>
     </action>
 
+    <action name="searchAlbumOptions">
+        <result>searchAlbumOptions.jsp</result>
+    </action>
+
+    <action name="searchAlbumByNameInput">
+        <result>searchAlbumNameInfo.jsp</result>
+    </action>
+
+    <action name="searchAlbumByName" class="action.SearchAlbumByName" method="execute">
+        <result name="worked">showAlbum.jsp</result>
+        <result name="workedP">showAlbums.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="failed">menuPrincipal.jsp</result>
+    </action>
+
     <action name="showComposerMusic" class="action.SearchMusicsByComposer" method="execute">
-        <result name="worked">showMusics.jsp</result>
+        <result name="worked">showComposerMusics.jsp</result>
+        <result name="failedNF">menuPrincipal.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="failed">menuPrincipal.jsp</result>
+    </action>
+
+    <action name="searchBySongwriterInput">
+        <result>searchMusicSongwriterInfo.jsp</result>
+    </action>
+
+    <action name="showSongwriterMusic" class="action.SearchMusicsBySongwriter" method="execute">
+        <result name="worked">showSongwriterMusics.jsp</result>
         <result name="failedNF">menuPrincipal.jsp</result>
         <result name="rip">sww.jsp</result>
         <result name="failed">menuPrincipal.jsp</result>
@@ -86,6 +112,8 @@
         <result name="workedP">showArtists.jsp</result>
         <result name="failed">searchArtistInfo.jsp</result>
     </action>
+
+
 
     <action name="checkLogin" class="action.Login" method="execute">
         <result name="failed">login.jsp</result>

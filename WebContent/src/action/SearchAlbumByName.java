@@ -1,22 +1,21 @@
 package action;
-
 import com.opensymphony.xwork2.ActionSupport;
 import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.Map;
 
-
-public class SearchMusicByName extends ActionSupport implements SessionAware {
+public class SearchAlbumByName extends ActionSupport implements SessionAware {
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
-    private String musicName="";
+    private String albumName="";
+
     public String execute() throws Exception {
-        if((this.musicName != null && !musicName.equals(""))){
-            String response = this.getBean().showAlbumByName(this.musicName);
+        if((this.albumName != null && !albumName.equals(""))){
+            String response = this.getBean().showAlbumByName(this.albumName);
             String[] respSplit = response.split(";");
             switch(respSplit[0]){
-                case "type|musicDatabaseEmpty":
+                case "type|albumDatabaseEmpty":
                     return "failed";
                 case "type|noMatchesFound":
                     return "failed";
@@ -24,19 +23,27 @@ public class SearchMusicByName extends ActionSupport implements SessionAware {
                     String[] results = respSplit[1].split("\\|");
                     session.put("albums",results[1]);
                     return "workedP";
-                case "type|notPartialSearchComplete":
+                case "type|notPartialSearchAlbumComplete":
                     String[] nameParts = respSplit[1].split("\\|");
                     String[] artistParts = respSplit[2].split("\\|");
-                    String[] composerParts = respSplit[3].split("\\|");
-                    String[] songwriterParts = respSplit[4].split("\\|");
-                    String[] albumParts = respSplit[5].split("\\|");
-                    String[] lengthParts = respSplit[6].split("\\|");
-                    session.put("title",nameParts[1]);
+                    String[] descParts = respSplit[3].split("\\|");
+                    String[] genreParts = respSplit[5].split("\\|");
+                    String[] scoreParts = respSplit[6].split("\\|");
+                    String[] lengthParts = respSplit[4].split("\\|");
+                    String[] criticParts = respSplit[7].split("\\|");
+                    String[] musicsParts = respSplit[8].split("\\|");
+                    String[] publisherParts = respSplit[9].split("\\|");
+
+
+                    session.put("name",nameParts[1]);
                     session.put("length",lengthParts[1]);
                     session.put("artist",artistParts[1]);
-                    session.put("album",albumParts[1]);
-                    session.put("composer",composerParts[1]);
-                    session.put("songwriter",songwriterParts[1]);
+                    session.put("score",scoreParts[1]);
+                    session.put("description",descParts[1]);
+                    session.put("genre",genreParts[1]);
+                    session.put("critic",criticParts[1]);
+                    session.put("musics",musicsParts[1]);
+                    session.put("publisher",publisherParts[1]);
                     return "worked";
                 default:
                     return "rip";
@@ -45,8 +52,9 @@ public class SearchMusicByName extends ActionSupport implements SessionAware {
         return "rip";
     }
 
-    public void setMusicName(String musicName) {
-        this.musicName = musicName;
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
     }
 
     public Bean getBean() {

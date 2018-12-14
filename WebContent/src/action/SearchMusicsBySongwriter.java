@@ -1,29 +1,30 @@
 package action;
 
-import model.Bean;
 import com.opensymphony.xwork2.ActionSupport;
+import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
+
 import java.util.Map;
 
-public class SearchMusicsByComposer extends ActionSupport implements SessionAware{
+public class SearchMusicsBySongwriter extends ActionSupport implements SessionAware{
     private static final long serialVersionUID = 4L;
-    private String composerName = "";
+    private String songwriterName = "";
     private Map<String, Object> session;
 
     public String execute() throws Exception{ {
-        if((this.composerName != null && !composerName.equals(""))){
-            String response = this.getBean().showMusicsByComposer(this.composerName);
+        if((this.songwriterName != null && !songwriterName.equals(""))){
+            String response = this.getBean().showMusicsBySongwriter(this.songwriterName);
             String[] respSplit = response.split(";");
             System.out.println(respSplit[0]);
             switch(respSplit[0]){
                 case "type|musicDatabaseEmpty":
                     System.out.println("failed");
                     return "failed";
-                case "type|composerNotFound":
+                case "type|songwriterNotFound":
                     return "failedNF";
-                case "type|showComposerMusicsComplete":
+                case "type|showSongwriterMusicsComplete":
                     String[] albumsParts = respSplit[1].split("\\|");
-                    session.put("composer",composerName);
+                    session.put("songwriter",songwriterName);
                     session.put("musics",albumsParts[1]);
                     return "worked";
                 default:
@@ -49,7 +50,7 @@ public class SearchMusicsByComposer extends ActionSupport implements SessionAwar
         this.session = session;
     }
 
-    public void setComposerName(String composerName) {
-        this.composerName=composerName;
+    public void setComposerName(String songwriterName) {
+        this.songwriterName=songwriterName;
     }
 }

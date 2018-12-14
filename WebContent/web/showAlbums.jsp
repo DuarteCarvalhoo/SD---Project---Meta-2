@@ -2,12 +2,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dropmusic - Search Music</title>
+    <title>Dropmusic - Listing albums</title>
 </head>
 <body>
-<s:form action="showComposerMusic" method="post">
-    <s:text name="Music's composer:" />
-    <s:textfield name="composerName"/><br><br>
+<h2>Did you mean one of these?</h2>
+<a>Albums: ${albums}</a><br><br>
+<s:form action="searchAlbumByName" method="post">
+    <s:text name="Choose one of the above:" />
+    <s:textfield name="albumName"/><br><br>
     <s:submit value="Search"/>
 </s:form>
 <p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>
