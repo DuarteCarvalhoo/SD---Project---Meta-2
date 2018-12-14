@@ -47,7 +47,7 @@
     </action>
 
     <action name="searchMenu">
-        <result name="success">search.jsp</result>
+        <result>search.jsp</result>
     </action>
 
     <action name="searchArtistInput">
@@ -75,6 +75,7 @@
 
     <action name="searchMusicByName" class="action.SearchMusicByName" method="execute">
         <result name="worked">showMusic.jsp</result>
+        <result name="workedP">showMusics.jsp</result>
         <result name="rip">sww.jsp</result>
         <result name="failed">menuPrincipal.jsp</result>
     </action>
@@ -82,7 +83,7 @@
     <action name="searchArtist" class="action.SearchArtist" method="execute">
         <result name="rip">sww.jsp</result>
         <result name="worked">showArtist.jsp</result>
-        <result name="workedP">menuPrincipal.jsp</result>
+        <result name="workedP">showArtists.jsp</result>
         <result name="failed">searchArtistInfo.jsp</result>
     </action>
 
