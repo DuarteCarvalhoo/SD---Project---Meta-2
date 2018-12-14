@@ -126,4 +126,16 @@ public class Bean {
         }
         return response;
     }
+
+    public String showAlbumByArtist(String name){
+        String response = "";
+        try{
+            response = rmi.showArtistAlbums(name);
+            return response;
+        }catch(RemoteException e){
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
 }
