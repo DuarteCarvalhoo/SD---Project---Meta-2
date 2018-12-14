@@ -18,6 +18,8 @@ public class SearchMusicByName extends ActionSupport implements SessionAware {
             switch(respSplit[0]){
                 case "type|musicDatabaseEmpty":
                     return "failed";
+                case "type|noMatchesFound":
+                    return "failed";
                 case "type|partialSearchComplete":
                     System.out.println("parcial");
                     String[] results = respSplit[1].split("\\|");
