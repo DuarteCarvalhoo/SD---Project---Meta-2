@@ -74,6 +74,17 @@
         <result>searchAlbumNameInfo.jsp</result>
     </action>
 
+    <action name="searchAlbumByArtistInput">
+        <result>searchAlbumByArtistInfo.jsp</result>
+    </action>
+
+    <action name="searchAlbumByArtist" class="action.SearchAlbumByArtist" method="execute">
+        <result name="worked">showArtistAlbums.jsp</result>
+        <result name="workedP">showAlbums.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="failed">menuPrincipal.jsp</result>
+    </action>
+
     <action name="searchAlbumByName" class="action.SearchAlbumByName" method="execute">
         <result name="worked">showAlbum.jsp</result>
         <result name="workedP">showAlbums.jsp</result>
