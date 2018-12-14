@@ -46,8 +46,8 @@
         <result name="success">menuPrincipal.jsp</result>
     </action>
 
-    <action name="searchMenu" class="action.Search" method="execute">
-        <result name="success">search.jsp</result>
+    <action name="searchMenu">
+        <result>search.jsp</result>
     </action>
 
     <action name="checkLogin" class="action.Login" method="execute">
