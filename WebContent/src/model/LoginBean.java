@@ -22,4 +22,24 @@ public class LoginBean {
                 e.printStackTrace();
             }
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserMatchesPassword() {
+        String response = "";
+        try{
+            response = rmi.checkLogin(this.username,this.password);
+            return response;
+        } catch (RemoteException e) {
+            response = "somethingWentWrong";
+            e.printStackTrace();
+        }
+        return response;
+    }
 }

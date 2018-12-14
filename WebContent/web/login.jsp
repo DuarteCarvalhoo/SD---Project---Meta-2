@@ -5,9 +5,14 @@
     <title>Dropmusic - Login</title>
 </head>
 <body>
+
+    <h1>Login</h1><br><br>
+
     <s:form action="checkLogin" method="post">
-        <s:textfield name="username" label="Username:"/><br><br>
-        <s:password name="password" label="Password:"/><br>
+        <s:text name="Username:" />
+        <s:textfield name="username"/><br><br>
+        <s:text name="Password:" />
+        <s:password name="password"/><br>
         <s:submit/>
     </s:form>
     <p><a href="<s:url action="index" />">Back</a></p>

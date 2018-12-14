@@ -1119,8 +1119,8 @@ public class Server implements Hello {
         return null;
     }
     public String menuPrincipal() throws Exception{
-    }
         return "success";
+    }
     public String critic() throws Exception{
 
         return "success";
