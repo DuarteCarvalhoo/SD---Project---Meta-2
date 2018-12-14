@@ -8,8 +8,8 @@
 <h2>Who is the user you want to become an editor?</h2>
 <s:form action="makeEditor" method="post">
     <s:text name="Username:" />
-    <s:textfield name="targetName"/><br><br>
-    <s:submit value="Search"/>
+    <s:textfield name="targetName"/>
+    <s:submit value="Confirm"/>
 </s:form>
 <p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>
 </body>
