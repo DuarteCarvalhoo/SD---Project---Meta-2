@@ -2057,4 +2057,7 @@ public class Client extends UnicastRemoteObject implements ClientHello{
     public void msg(String aux){
         System.out.println(aux);
     }
+
+
 }
+
