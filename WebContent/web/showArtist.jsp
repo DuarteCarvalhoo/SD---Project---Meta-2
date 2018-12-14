@@ -5,9 +5,10 @@
     <title>Dropmusic - Artist View</title>
 </head>
 <body>
-    <a>Name: </a><br>
-    <a>Functions: </a><br>
-    <a>Albums: </a><br>
+    <a>Name: ${name}</a><br>
+    <a>Description: ${description}</a><br>
+    <a>Functions: ${functions}</a><br>
+    <a>Albums: ${albums}</a><br>
 
     <p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>
 </body>

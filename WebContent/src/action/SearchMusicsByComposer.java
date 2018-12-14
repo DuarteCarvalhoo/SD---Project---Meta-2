@@ -1,37 +1,29 @@
 package action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import model.Bean;
+import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
-
 import java.util.Map;
 
-public class SearchArtist extends ActionSupport implements SessionAware {
+public class SearchMusicsByComposer extends ActionSupport implements SessionAware{
     private static final long serialVersionUID = 4L;
-    private String artistName = "";
+    private String composerName = "";
     private Map<String, Object> session;
 
     public String execute() throws Exception{ {
-        if((this.artistName != null && !artistName.equals(""))){
-            String response = this.getBean().showArtist(this.artistName);
+        if((this.composerName != null && !composerName.equals(""))){
+            String response = this.getBean().showMusicsByComposer(this.composerName);
             String[] respSplit = response.split(";");
-            String[] nameParts = respSplit[1].split("\\|");
-            String[] descParts = respSplit[2].split("\\|");
-            String[] funcParts = respSplit[3].split("\\|");
-            String[] albumParts = respSplit[4].split("\\|");
+            System.out.println(respSplit[0]);
             switch(respSplit[0]){
-                case "type|artistDatabaseEmpty":
+                case "type|musicDatabaseEmpty":
                     System.out.println("failed");
                     return "failed";
-                case "type|partialSearchComplete":
+                case "type|composerNotFound":
                     System.out.println("parcial");
-                    return "workedP";
-                case "type|notPartialSearchComplete":
+                    return "failedNF";
+                case "type|showComposerMusicsComplete":
                     System.out.println(" nao parcial");
-                    session.put("name",nameParts[1]);
-                    session.put("description",descParts[1]);
-                    session.put("functions",funcParts[1]);
-                    session.put("albums",albumParts[1]);
                     return "worked";
                 default:
                     return "rip";
@@ -56,7 +48,7 @@ public class SearchArtist extends ActionSupport implements SessionAware {
         this.session = session;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName=artistName;
+    public void setComposerName(String composerName) {
+        this.composerName=composerName;
     }
 }

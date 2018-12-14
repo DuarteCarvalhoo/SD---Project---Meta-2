@@ -78,4 +78,28 @@ public class Bean {
         }
         return response;
     }
+
+    public String showMusicByName(String name){
+        String response = "";
+        try{
+            response = rmi.showMusic(name);
+            return response;
+        }catch(RemoteException e){
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public String showMusicsByComposer(String name){
+        String response = "";
+        try{
+            response = rmi.showComposerMusics(name);
+            return response;
+        }catch(RemoteException e){
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
 }

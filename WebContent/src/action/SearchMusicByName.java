@@ -6,32 +6,24 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.Map;
 
-public class SearchArtist extends ActionSupport implements SessionAware {
-    private static final long serialVersionUID = 4L;
-    private String artistName = "";
-    private Map<String, Object> session;
 
-    public String execute() throws Exception{ {
-        if((this.artistName != null && !artistName.equals(""))){
-            String response = this.getBean().showArtist(this.artistName);
+public class SearchMusicByName extends ActionSupport implements SessionAware {
+    private static final long serialVersionUID = 4L;
+    private Map<String, Object> session;
+    private String musicName="";
+    public String execute() throws Exception {
+        if((this.musicName != null && !musicName.equals(""))){
+            String response = this.getBean().showMusicByName(this.musicName);
             String[] respSplit = response.split(";");
-            String[] nameParts = respSplit[1].split("\\|");
-            String[] descParts = respSplit[2].split("\\|");
-            String[] funcParts = respSplit[3].split("\\|");
-            String[] albumParts = respSplit[4].split("\\|");
+            System.out.println(respSplit[0]);
             switch(respSplit[0]){
-                case "type|artistDatabaseEmpty":
-                    System.out.println("failed");
+                case "type|musicDatabaseEmpty":
                     return "failed";
                 case "type|partialSearchComplete":
                     System.out.println("parcial");
                     return "workedP";
                 case "type|notPartialSearchComplete":
                     System.out.println(" nao parcial");
-                    session.put("name",nameParts[1]);
-                    session.put("description",descParts[1]);
-                    session.put("functions",funcParts[1]);
-                    session.put("albums",albumParts[1]);
                     return "worked";
                 default:
                     return "rip";
@@ -39,6 +31,9 @@ public class SearchArtist extends ActionSupport implements SessionAware {
         }
         return "rip";
     }
+
+    public void setMusicName(String musicName) {
+        this.musicName = musicName;
     }
 
     public Bean getBean() {
@@ -54,9 +49,5 @@ public class SearchArtist extends ActionSupport implements SessionAware {
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
-    }
-
-    public void setArtistName(String artistName) {
-        this.artistName=artistName;
     }
 }

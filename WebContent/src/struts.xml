@@ -36,7 +36,7 @@
     </action>
 
     <action name="register" class="action.Register" method="execute">
-        <result name="success">index.jsp</result>
+        <result name="success">login.jsp</result>
         <result name="invalidCredentials">index.jsp</result>
         <result name="rip">sww.jsp</result>
         <result name="usernameUsed">index.jsp</result>
@@ -54,9 +54,35 @@
         <result>searchArtistInfo.jsp</result>
     </action>
 
+    <action name="searchMusicOptions">
+        <result>searchMusicOptions.jsp</result>
+    </action>
+
+    <action name="searchByNameInput">
+        <result>searchMusicNameInfo.jsp</result>
+    </action>
+
+    <action name="searchByComposerInput">
+        <result>searchMusicComposerInfo.jsp</result>
+    </action>
+
+    <action name="showComposerMusic" class="action.SearchMusicsByComposer" method="execute">
+        <result name="worked">showMusics.jsp</result>
+        <result name="failedNF">menuPrincipal.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="failed">menuPrincipal.jsp</result>
+    </action>
+
+    <action name="searchMusicByName" class="action.SearchMusicByName" method="execute">
+        <result name="worked">showMusic.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="failed">menuPrincipal.jsp</result>
+    </action>
+
     <action name="searchArtist" class="action.SearchArtist" method="execute">
         <result name="rip">sww.jsp</result>
         <result name="worked">showArtist.jsp</result>
+        <result name="workedP">menuPrincipal.jsp</result>
         <result name="failed">searchArtistInfo.jsp</result>
     </action>
 

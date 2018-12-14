@@ -259,10 +259,7 @@ public class Server implements Hello {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
             String msg = receiveMulticast();
-            String[] msgSplit = msg.split(";");
-            switch (msgSplit[0]){
-
-            }
+            return msg;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
