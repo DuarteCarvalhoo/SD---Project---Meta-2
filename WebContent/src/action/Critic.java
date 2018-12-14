@@ -6,7 +6,7 @@ public class Critic {
     public String album=null, critic=null, score=null;
 
     public String execute() throws RemoteException{
-        return ERROR;
+        return "ola";
     }
     public String getAlbum() {
         return album;
