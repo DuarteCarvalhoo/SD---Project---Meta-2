@@ -1757,7 +1757,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
             }
         }
 
-        String response = rmi.checkEditorMaking(name, rmi);
+        /*String response = rmi.checkEditorMaking(name, rmi);
         switch (response.trim()){
             case "type|makingEditorComplete":
                 System.out.println(name +" is now an editor.");
@@ -1767,7 +1767,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 break;
             default:
                 System.out.println("Something went wrong.");
-        }
+        }*/
     }
 
             ////////////// FAZER UMA CRITICA /////////////

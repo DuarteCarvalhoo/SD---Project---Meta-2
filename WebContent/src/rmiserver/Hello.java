@@ -63,7 +63,7 @@ public interface Hello extends Remote {
 
     String ping() throws RemoteException;
 
-    String checkEditorMaking(String name, Hello rmi) throws RemoteException;
+    String checkEditorMaking(String name) throws RemoteException;
 
     String createSongwriter(String name, String description) throws RemoteException;
 

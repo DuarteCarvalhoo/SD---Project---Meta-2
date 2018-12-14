@@ -939,7 +939,7 @@ public class Server implements Hello {
     }
 
     ///////////// TORNAR EDITOR /////////////
-    public String checkEditorMaking(String name, Hello rmi){
+    public String checkEditorMaking(String name){
         MulticastSocket socket = null;
         //envia pra o multicast
         try {
@@ -950,49 +950,14 @@ public class Server implements Hello {
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
+            String msg = receiveMulticast();
+            return msg;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             socket.close();
         }
-        String msg = receiveMulticast();
-        System.out.println(msg + "antes do if");
-        if(msg.equals("type|makingEditorComplete")){
-            System.out.println("entrou na parte do server");
-            ClientHello aux2 = null;
-            System.out.println("entrei no if");
-            try {
-                /*for (int i=0;i<userOnlines.size();i++) {
-                    if (userOnlines.get(i).getUsername().equals(name)) {
-                        System.out.println("entrei noutro");
-                        aux2 = userOnlines.get(i).getInterface();
-                        System.out.println("criou interface client");
-                        break;
-                    }
-                }*/
-                aux2.msg(">> You are now an editor!");
-            } catch (NullPointerException e) { //o user ta off
-                System.out.println("tou remoteexpetion");
-                try{
-                    String mensage = ">> You are now an editor!";
-                    socket = new MulticastSocket();
-                    InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
-                    socket.joinGroup(group);
-                    String aux3 = "type|addNotification;user|"+name+";mensagem|"+mensage; //protocol
-                    byte[] buffer = aux3.getBytes();
-                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
-                    socket.send(packet);
-                } catch (UnknownHostException e1) {
-                    e1.printStackTrace();                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }finally {
-                    socket.close();
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
-        return msg;
+        return "rip";
     }
 
     ////////////// FAZER CRITICA /////////////

@@ -133,7 +133,16 @@
     </action>
 
     <action name="linkCritic">
-        <result name="success">critic.jsp</result>
+        <result>critic.jsp</result>
+    </action>
+
+    <action name="makeEditorMenu">
+        <result>makeEditor.jsp</result>
+    </action>
+
+    <action name="makeEditor" class="action.MakeEditor" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
     </action>
 
     <action name="insertCritic" class="action.Critic" method="execute">

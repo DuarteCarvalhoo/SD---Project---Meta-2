@@ -138,4 +138,17 @@ public class Bean {
         }
         return response;
     }
+
+    public String makeEditor(String name){
+        String response = "";
+        try{
+            response = rmi.checkEditorMaking(name);
+            return response;
+        }catch(RemoteException e){
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 }
