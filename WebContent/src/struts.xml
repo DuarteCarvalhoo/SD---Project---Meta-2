@@ -83,7 +83,7 @@
     <action name="searchArtist" class="action.SearchArtist" method="execute">
         <result name="rip">sww.jsp</result>
         <result name="worked">showArtist.jsp</result>
-        <result name="workedP">menuPrincipal.jsp</result>
+        <result name="workedP">showArtists.jsp</result>
         <result name="failed">searchArtistInfo.jsp</result>
     </action>
 

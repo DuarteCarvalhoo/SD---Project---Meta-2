@@ -15,19 +15,22 @@ public class SearchArtist extends ActionSupport implements SessionAware {
         if((this.artistName != null && !artistName.equals(""))){
             String response = this.getBean().showArtist(this.artistName);
             String[] respSplit = response.split(";");
-            String[] nameParts = respSplit[1].split("\\|");
-            String[] descParts = respSplit[2].split("\\|");
-            String[] funcParts = respSplit[3].split("\\|");
-            String[] albumParts = respSplit[4].split("\\|");
+
             switch(respSplit[0]){
                 case "type|artistDatabaseEmpty":
                     System.out.println("failed");
                     return "failed";
+                case "type|noMatchesFound":
+                    return "failed";
                 case "type|partialSearchComplete":
-                    System.out.println("parcial");
+                    String[] results = respSplit[1].split("\\|");
+                    session.put("artists",results[1]);
                     return "workedP";
                 case "type|notPartialSearchComplete":
-                    System.out.println(" nao parcial");
+                    String[] nameParts = respSplit[1].split("\\|");
+                    String[] descParts = respSplit[2].split("\\|");
+                    String[] funcParts = respSplit[3].split("\\|");
+                    String[] albumParts = respSplit[4].split("\\|");
                     session.put("name",nameParts[1]);
                     session.put("description",descParts[1]);
                     session.put("functions",funcParts[1]);

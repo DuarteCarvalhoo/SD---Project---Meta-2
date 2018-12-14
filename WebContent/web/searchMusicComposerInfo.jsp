@@ -10,5 +10,6 @@
     <s:textfield name="composerName"/><br><br>
     <s:submit value="Search"/>
 </s:form>
+<p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>
 </body>
 </html>
