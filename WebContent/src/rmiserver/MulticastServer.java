@@ -54,12 +54,13 @@ public class MulticastServer extends Thread implements Serializable {
                         String pass = loginPasswordParts[1];
                         try {
                             if (userDatabaseEmpty()) {
-                                sendMsg("type|loginFail");
+                                sendMsg("type|emptyDatabase");
                                 System.out.println("ERROR: No users on the database.");
                             } else {
                                 User u = checkUsernameLogin(user, pass);
                                 if(u.getId() != 0){
-                                    sendMsg("type|loginComplete;id|" + u.getId()+";editor|"+u.isEditor());//
+                                    /*sendMsg("type|loginComplete;id|" + u.getId()+";editor|"+u.isEditor());*/
+                                    sendMsg("type|loginComplete");//
                                     System.out.println("SUCESSO: Login Completo");
                                     flag = true;
                                 }
@@ -70,7 +71,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 }
                         }
                         catch (org.postgresql.util.PSQLException e){
-                            System.out.println(e);
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case "type|register":

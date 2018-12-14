@@ -122,35 +122,35 @@ public class Server implements Hello {
     }
 
     ///////////// REGISTO, LOGIN, LOGOUT /////////////
-    public String checkLogin(String login) {
+    public String checkLogin(String username, String password) {
         System.out.println("Entrou no Login");
-        String[] newLogin = login.split("-");
         MulticastSocket socket = null;
-        for(User u : userOnlines){
-            if(u.getUsername().equals(newLogin[0])){
-                return "type|userLogged";
-            }
-        }
         //envia pra o multicast
         try {
             socket = new MulticastSocket();
             InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
             socket.joinGroup(group);
-            String aux = "type|login;username|" + newLogin[0] + ";password|" + newLogin[1]; //protocol
+            String aux = "type|login;username|" + username + ";password|" + password; //protocol
             System.out.println(aux); //ver como ficou
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
             //recebe do multicast
             String msg = receiveMulticast();
-            return msg;
+            switch (msg){
+                case "type|loginFail":
+                    return "loginFail";
+                case "type|loginComplete":
+                    return "loginComplete";
+                default:
+                    return "somethingWentWrong";
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
             socket.close();
         }
-
-        return "ups";
+        return "rip";
     }
 
     public String checkRegister(String username, String password) {

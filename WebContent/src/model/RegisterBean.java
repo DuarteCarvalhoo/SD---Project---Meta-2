@@ -40,10 +40,6 @@ public class RegisterBean {
         this.password = password;
     }
 
-    public boolean getUserMatchesPassword() {
-        return false;
-    }
-
     public String insertData(String username, String password) {
         String response = "";
         try{
