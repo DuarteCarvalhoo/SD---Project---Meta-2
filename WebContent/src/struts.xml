@@ -75,6 +75,7 @@
 
     <action name="searchMusicByName" class="action.SearchMusicByName" method="execute">
         <result name="worked">showMusic.jsp</result>
+        <result name="workedP">showMusics.jsp</result>
         <result name="rip">sww.jsp</result>
         <result name="failed">menuPrincipal.jsp</result>
     </action>

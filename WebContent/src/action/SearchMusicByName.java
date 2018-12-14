@@ -15,20 +15,21 @@ public class SearchMusicByName extends ActionSupport implements SessionAware {
         if((this.musicName != null && !musicName.equals(""))){
             String response = this.getBean().showMusicByName(this.musicName);
             String[] respSplit = response.split(";");
-            String[] nameParts = respSplit[1].split("\\|");
-            String[] artistParts = respSplit[2].split("\\|");
-            String[] composerParts = respSplit[3].split("\\|");
-            String[] songwriterParts = respSplit[4].split("\\|");
-            String[] albumParts = respSplit[5].split("\\|");
-            String[] lengthParts = respSplit[6].split("\\|");
-
             switch(respSplit[0]){
                 case "type|musicDatabaseEmpty":
                     return "failed";
                 case "type|partialSearchComplete":
                     System.out.println("parcial");
+                    String[] results = respSplit[1].split("\\|");
+                    session.put("musics",results[1]);
                     return "workedP";
                 case "type|notPartialSearchComplete":
+                    String[] nameParts = respSplit[1].split("\\|");
+                    String[] artistParts = respSplit[2].split("\\|");
+                    String[] composerParts = respSplit[3].split("\\|");
+                    String[] songwriterParts = respSplit[4].split("\\|");
+                    String[] albumParts = respSplit[5].split("\\|");
+                    String[] lengthParts = respSplit[6].split("\\|");
                     session.put("title",nameParts[1]);
                     session.put("length",lengthParts[1]);
                     session.put("artist",artistParts[1]);
