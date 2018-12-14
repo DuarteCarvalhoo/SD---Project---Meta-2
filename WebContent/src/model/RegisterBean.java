@@ -6,6 +6,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class RegisterBean {
     private Hello rmi;
@@ -14,10 +16,11 @@ public class RegisterBean {
 
     public RegisterBean() {
         try {
-            rmi = (Hello) Naming.lookup("Hello");
+            Registry registry = LocateRegistry.getRegistry(7000);
+            rmi =(Hello) registry.lookup("Hello");
         }
-        catch(NotBoundException | RemoteException | MalformedURLException e) {
-            e.printStackTrace(); // what happens *after* we reach this line?
+        catch(NotBoundException | RemoteException e) {
+            e.printStackTrace();
         }
     }
 
@@ -31,5 +34,17 @@ public class RegisterBean {
 
     public boolean getUserMatchesPassword() {
         return false;
+    }
+
+    public String insertData(String username, String password) {
+        String response = "";
+        try{
+            response = rmi.checkRegister(username,password);
+            return response;
+        } catch (RemoteException e) {
+            response = "somethingWentWrong";
+            System.out.println(e.getMessage());
+        }
+        return response;
     }
 }

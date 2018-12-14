@@ -31,5 +31,6 @@
     <orderEntry type="library" name="Struts 2" level="project" />
     <orderEntry type="module" module-name="ServerClient" />
     <orderEntry type="library" name="postgresql-42.2.5" level="project" />
+    <orderEntry type="library" name="postgresql-42.2.51" level="project" />
   </component>
 </module>

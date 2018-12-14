@@ -3,6 +3,7 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 import model.RegisterBean;
 import org.apache.struts2.interceptor.SessionAware;
+import rmiserver.Hello;
 
 import java.util.Map;
 
@@ -25,12 +26,17 @@ public class Register extends ActionSupport implements SessionAware {
         if((this.username != null && !username.equals("")) && (this.password !=null && !password.equals(""))) {
             this.getRegisterBean().setUsername(this.username);
             this.getRegisterBean().setPassword(this.password);
-            System.out.println("oof");
-            return SUCCESS;
+            String response = this.getRegisterBean().insertData(this.username,this.password);
+            switch(response){
+                case "usernameUsed":
+                    return "usernameUsed";
+                case "Success":
+                    return SUCCESS;
+                default:
+                    return "rip";
+            }
         }
-        else
-            System.out.println("oops");
-            return LOGIN;
+        return "invalidCredentials";
     }
 
     public RegisterBean getRegisterBean() {

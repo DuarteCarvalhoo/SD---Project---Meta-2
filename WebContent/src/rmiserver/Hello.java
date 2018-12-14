@@ -41,6 +41,8 @@ import java.rmi.RemoteException;
 
 public interface Hello extends Remote {
 
+    String checkRegister(String username, String password) throws RemoteException;
+
     void addOnlineUser(User aux) throws RemoteException;
 
     void removeOnlineUser(User aux) throws RemoteException;
@@ -54,8 +56,6 @@ public interface Hello extends Remote {
     String msgInput(String text) throws RemoteException;
 
     String checkLogin(String login) throws RemoteException;
-
-    String checkRegister(String register) throws RemoteException;
 
     String checkLogout(User user) throws RemoteException;
 
