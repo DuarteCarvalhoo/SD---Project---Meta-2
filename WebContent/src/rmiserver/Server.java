@@ -540,6 +540,8 @@ public class Server implements Hello {
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
+            String msg = receiveMulticast();
+            return msg;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -547,9 +549,7 @@ public class Server implements Hello {
         }
 
         //recebe do multicast
-        String msg = receiveMulticast();
-        if (msg != null) return msg;
-        return null;
+        return "something";
     }
 
     public String editPlaylistName(String playlist, String nameAfter) throws RemoteException {

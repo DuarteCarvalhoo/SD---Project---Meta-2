@@ -5,8 +5,8 @@
     <title>Dropmusic - Search Music</title>
 </head>
 <body>
-<s:form action="showComposerMusic" method="post">
-    <s:text name="Music's composer:" />
+<s:form action="showSongwriterMusic" method="post">
+    <s:text name="Music's songwriter:" />
     <s:textfield name="composerName"/><br><br>
     <s:submit value="Search"/>
 </s:form>
