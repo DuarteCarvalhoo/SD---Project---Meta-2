@@ -1,10 +1,9 @@
 package action;
 
-import model.SearchArtistBean;
-
 import com.opensymphony.xwork2.ActionSupport;
+import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
-import java.util.HashMap;
+
 import java.util.Map;
 
 public class SearchArtist extends ActionSupport implements SessionAware {
@@ -14,8 +13,7 @@ public class SearchArtist extends ActionSupport implements SessionAware {
 
     public String execute() throws Exception{ {
         if((this.artistName != null && !artistName.equals(""))){
-            this.getSearchArtistBean().setArtistName(this.artistName);
-            String response = this.getSearchArtistBean().getArtistInfo();
+            String response = this.getBean().showArtist(this.artistName);
             String[] respSplit = response.split(";");
             switch(respSplit[0]){
                 case "type|artistDatabaseEmpty":
@@ -32,18 +30,22 @@ public class SearchArtist extends ActionSupport implements SessionAware {
     }
     }
 
-    private SearchArtistBean getSearchArtistBean() {
-        if(!session.containsKey("searchArtistBean"))
-            this.setSearchArtistBean(new SearchArtistBean());
-        return (SearchArtistBean) session.get("searchArtistBean");
+    public Bean getBean() {
+        if(!session.containsKey("Bean"))
+            this.setBean(new Bean());
+        return (Bean) session.get("Bean");
     }
 
-    private void setSearchArtistBean(SearchArtistBean searchArtistBean) {
-        this.session.put("searchArtistBean", searchArtistBean);
+    private void setBean(Bean Bean){
+        this.session.put("Bean", Bean);
     }
 
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName=artistName;
     }
 }

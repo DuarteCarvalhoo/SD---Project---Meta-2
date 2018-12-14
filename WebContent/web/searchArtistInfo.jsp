@@ -5,10 +5,10 @@
     <title>Dropmusic - Search Artist</title>
 </head>
 <body>
-    <s:form action="searchArtist" method="post">
+<s:form action="searchArtist" method="post">
     <s:text name="Artist name:" />
     <s:textfield name="artistName"/><br><br>
-    <s:submit/>
+    <s:submit value="Search"/>
 </s:form>
 </body>
 </html>

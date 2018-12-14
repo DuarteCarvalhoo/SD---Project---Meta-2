@@ -13,6 +13,7 @@ public class Bean {
     private String username; // username and password supplied by the user
     private String password;
     private User user;
+    private String artistName;
 
     public Bean() {
         try {
@@ -61,6 +62,19 @@ public class Bean {
         } catch (RemoteException e) {
             response = "somethingWentWrong";
             System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    //SEARCH
+    public String showArtist(String name){
+        String response = "";
+        try{
+            response = rmi.showArtist(name);
+            return response;
+        } catch (RemoteException e) {
+            response = "somethingWentWrong";
+            e.printStackTrace();
         }
         return response;
     }
