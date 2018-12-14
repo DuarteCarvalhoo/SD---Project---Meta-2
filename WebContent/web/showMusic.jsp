@@ -5,12 +5,12 @@
     <title>Dropmusic - Music View</title>
 </head>
 <body>
-<a>Title: </a><br>
-<a>Artist: </a><br>
-<a>Genre: </a><br>
-<a>Publisher: </a><br>
-<a>Description: </a><br>
-
+<a>Title: ${title}</a><br>
+<a>Artist: ${artist}</a><br>
+<a>Album: ${album}</a><br>
+<a>Composer: ${composer}</a><br>
+<a>Songwriter: ${songwriter}</a><br>
+<a>Length: ${length}</a><br>
 <p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>
 </body>
 </html>
