@@ -46,7 +46,7 @@ public class Register extends ActionSupport implements SessionAware {
     }
 
     private void setRegisterBean(RegisterBean registerBean) {
-            this.session.put("registerBean", registerBean);
+        this.session.put("registerBean", registerBean);
     }
 
     @Override

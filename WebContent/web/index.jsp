@@ -7,6 +7,6 @@
   <body>
   Welcome to Dropmusic!
   <p><a href="<s:url action="signup" />">Sign up</a></p>
-  <p><a href="<s:url action="index" />">Login</a></p>
+  <p><a href="<s:url action="login" />">Login</a></p>
   </body>
 </html>

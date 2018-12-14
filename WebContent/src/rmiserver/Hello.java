@@ -55,7 +55,7 @@ public interface Hello extends Remote {
 
     String msgInput(String text) throws RemoteException;
 
-    String checkLogin(String login) throws RemoteException;
+    String checkLogin(String username, String password) throws RemoteException;
 
     String checkLogout(User user) throws RemoteException;
 

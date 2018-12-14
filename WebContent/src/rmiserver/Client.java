@@ -109,7 +109,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 System.out.println("Insert your login('username-password'):");
             }
         }
-        String txt = rmi.checkLogin(userData);
+        /*String txt = rmi.checkLogin(userData);
         String[] txtSplit = txt.split(";");
         switch (txtSplit[0].trim()){
             case "type|loginComplete":
@@ -130,7 +130,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 break;
             default:
                 System.out.println("Something went wrong.");
-        }
+        }*/
     }
 
     public static void logout(Hello rmi) throws RemoteException{

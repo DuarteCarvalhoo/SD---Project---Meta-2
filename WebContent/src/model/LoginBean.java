@@ -9,19 +9,18 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class RegisterBean {
+public class LoginBean {
     private Hello rmi;
     private String username; // username and password supplied by the user
     private String password;
 
-    public RegisterBean() {
-        try {
-            Registry registry = LocateRegistry.getRegistry(7000);
-            rmi =(Hello) registry.lookup("Hello");
-        }
-        catch(NotBoundException | RemoteException e) {
-            e.printStackTrace();
-        }
+    public LoginBean() {
+            try {
+                Registry registry = LocateRegistry.getRegistry(7000);
+                rmi = (Hello) registry.lookup("Hello");
+            } catch (NotBoundException | RemoteException e) {
+                e.printStackTrace();
+            }
     }
 
     public void setUsername(String username) {
@@ -32,14 +31,14 @@ public class RegisterBean {
         this.password = password;
     }
 
-    public String insertData(String username, String password) {
+    public String getUserMatchesPassword() {
         String response = "";
         try{
-            response = rmi.checkRegister(username,password);
+            response = rmi.checkLogin(this.username,this.password);
             return response;
         } catch (RemoteException e) {
             response = "somethingWentWrong";
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return response;
     }
