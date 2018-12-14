@@ -46,8 +46,16 @@
         <result name="success">menuPrincipal.jsp</result>
     </action>
 
-    <action name="searchMenu" class="action.Search" method="execute">
+    <action name="searchMenu">
         <result name="success">search.jsp</result>
+    </action>
+
+    <action name="searchArtistInput">
+        <result>searchArtistInfo.jsp</result>
+    </action>
+
+    <action name="searchArtist" class="action.SearchArtist" method="execute">
+        <result>showArtist.jsp</result>
     </action>
 
     <action name="checkLogin" class="action.Login" method="execute">

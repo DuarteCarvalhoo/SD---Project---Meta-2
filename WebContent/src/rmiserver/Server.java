@@ -79,7 +79,7 @@ public class Server implements Hello {
 
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
@@ -258,16 +258,17 @@ public class Server implements Hello {
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
+            String msg = receiveMulticast();
+            String[] msgSplit = msg.split(";");
+            switch (msgSplit[0]){
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             socket.close();
         }
-
-        //recebe do multicast
-        String msg = receiveMulticast();
-        if (msg != null) return msg;
-        return null;
+        return "rip";
     }
 
     public String showArtistAlbums(String name){
