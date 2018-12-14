@@ -1,9 +1,9 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import model.LoginBean;
+import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
-import java.util.HashMap;
+
 import java.util.Map;
 
 public class Login extends ActionSupport implements SessionAware {
@@ -14,9 +14,9 @@ public class Login extends ActionSupport implements SessionAware {
     public String execute() throws Exception {
         // any username is accepted without confirmation (should check using RMI)
         if((this.username != null && !username.equals("")) && (this.password !=null && !password.equals(""))) {
-            this.getLoginBean().setUsername(this.username);
-            this.getLoginBean().setPassword(this.password);
-            String response = this.getLoginBean().getUserMatchesPassword();
+            this.getBean().setUsername(this.username);
+            this.getBean().setPassword(this.password);
+            String response = this.getBean().getUserMatchesPassword();
             System.out.println(response);
             switch(response){
                 case "loginFail":
@@ -32,14 +32,14 @@ public class Login extends ActionSupport implements SessionAware {
         return "rip";
     }
 
-    public LoginBean getLoginBean() {
-        if(!session.containsKey("loginBean"))
-            this.setLoginBean(new LoginBean());
-        return (LoginBean) session.get("loginBean");
+    public Bean getBean() {
+        if(!session.containsKey("Bean"))
+            this.setBean(new Bean());
+        return (Bean) session.get("Bean");
     }
 
-    private void setLoginBean(LoginBean loginBean){
-        this.session.put("loginBean", loginBean);
+    private void setBean(Bean Bean){
+        this.session.put("Bean", Bean);
     }
 
     public void setUsername(String username) {
