@@ -152,8 +152,9 @@
     </action>
 
     <action name="insertCritic" class="action.Critic" method="execute">
-        <result name="success">menuPrincipal.jsp</result>
-        <result name="error">critic.jsp</result>
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">critic.jsp</result>
+        <result name="rip">sww.jsp</result>
     </action>
 
     </package>

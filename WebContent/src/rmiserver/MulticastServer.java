@@ -1513,7 +1513,7 @@ public class MulticastServer extends Thread implements Serializable {
                         String[] scoreParts = aux[1].split("\\|");
                         String[] textParts = aux[2].split("\\|");
                         String[] albName = aux[3].split("\\|");
-                        String[] userId = aux[4].split("\\|");
+                        String[] userN = aux[4].split("\\|");
                         double score = Double.parseDouble(scoreParts[1]);
 
                         if(albumDatabaseEmpty()){
@@ -1540,13 +1540,15 @@ public class MulticastServer extends Thread implements Serializable {
                                         System.out.println("Album database empty.");
                                     }
                                 }
+
+
                                 connection.setAutoCommit(false);
                                 stmtCritic = connection.prepareStatement("INSERT INTO critic(id, score, text, album_id, utilizador_id) "
                                                 + "VALUES(DEFAULT,?,?,?,?);");
                                 stmtCritic.setDouble(1,Double.parseDouble(scoreParts[1]));
                                 stmtCritic.setString(2,textParts[1]);
                                 stmtCritic.setInt(3,albumId);
-                                stmtCritic.setInt(4,Integer.parseInt(userId[1]));
+                                stmtCritic.setInt(4,getUserIdByName(userN[1]));
                                 stmtCritic.executeUpdate();
                                 stmtCritic.close();
                                 connection.commit();

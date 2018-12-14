@@ -40,8 +40,8 @@ public class Bean {
     }
 
     // CRITIC ---------------------------
-    public String makeCritic(double score, String text, String album) throws RemoteException {
-        return this.rmi.makeCritic(score, text, album, this.user);
+    public String makeCritic(double score, String text, String album, String username) throws RemoteException {
+        return this.rmi.makeCritic(score, text, album, username);
     }
 
     // REGISTER

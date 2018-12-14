@@ -41,7 +41,7 @@ public class SearchAlbumByName extends ActionSupport implements SessionAware {
                     session.put("score",scoreParts[1]);
                     session.put("description",descParts[1]);
                     session.put("genre",genreParts[1]);
-                    session.put("critic",criticParts[1]);
+                    session.put("critics",criticParts[1]);
                     session.put("musics",musicsParts[1]);
                     session.put("publisher",publisherParts[1]);
                     return "worked";

@@ -1809,7 +1809,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
             }
         }
 
-        String response = rmi.makeCritic(score,criticText,album,loggedUser);
+        /*String response = rmi.makeCritic(score,criticText,album,loggedUser);
         switch (response.trim()){
             case "type|albumNotFound":
                 System.out.println("Album not found.");
@@ -1826,7 +1826,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
             case "type|criticFail":
                 System.out.println("ERROR: Critic not made.");
                 break;
-        }
+        }*/
 
     }
 

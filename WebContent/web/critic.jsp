@@ -12,12 +12,12 @@
     <title>Dropmusic - critic</title>
 </head>
 <body>
-    <s:form action="critic" method="post">
+    <s:form action="insertCritic" method="post">
         <s:text name="Which album do you want to make a critic:" />
         <s:textfield name="album" /><br>
         <s:text name="Critic's text:"/>
         <s:textfield name="critic"/>
-        <s:text name="Score(0-5):"/>
+        <s:text name="Score(0-10):"/>
         <s:textfield name="score"/>
         <s:submit />
     </s:form>
