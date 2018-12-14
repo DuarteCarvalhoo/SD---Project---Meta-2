@@ -13,16 +13,16 @@ public class SearchMusicByName extends ActionSupport implements SessionAware {
     private String musicName="";
     public String execute() throws Exception {
         if((this.musicName != null && !musicName.equals(""))){
-            String response = this.getBean().showAlbumByName(this.musicName);
+            String response = this.getBean().showMusicByName(this.musicName);
             String[] respSplit = response.split(";");
             switch(respSplit[0]){
                 case "type|musicDatabaseEmpty":
                     return "failed";
                 case "type|noMatchesFound":
                     return "failed";
-                case "type|partialSearchAlbumComplete":
+                case "type|partialSearchComplete":
                     String[] results = respSplit[1].split("\\|");
-                    session.put("albums",results[1]);
+                    session.put("musics",results[1]);
                     return "workedP";
                 case "type|notPartialSearchComplete":
                     String[] nameParts = respSplit[1].split("\\|");
