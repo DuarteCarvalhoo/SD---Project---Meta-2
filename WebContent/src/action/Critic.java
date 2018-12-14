@@ -2,11 +2,16 @@ package action;
 
 import java.rmi.RemoteException;
 
-public class Critic {
+public class Critic extends Action{
     public String album=null, critic=null, score=null;
 
+    @Override
     public String execute() throws RemoteException{
-        return "ola";
+        String aux = this.getBean().makeCritic(Double.parseDouble(score), critic, album);
+        if(aux.equals("type|criticComplete")) {
+            return SUCCESS;
+        }
+        return ERROR;
     }
     public String getAlbum() {
         return album;

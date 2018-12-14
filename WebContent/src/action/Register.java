@@ -1,9 +1,8 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import model.RegisterBean;
+import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
-import rmiserver.Hello;
 
 import java.util.Map;
 
@@ -24,9 +23,9 @@ public class Register extends ActionSupport implements SessionAware {
         System.out.println(username + " + " + password);
         // any username is accepted without confirmation (should check using RMI)
         if((this.username != null && !username.equals("")) && (this.password !=null && !password.equals(""))) {
-            this.getRegisterBean().setUsername(this.username);
-            this.getRegisterBean().setPassword(this.password);
-            String response = this.getRegisterBean().insertData(this.username,this.password);
+            this.getBean().setUsername(this.username);
+            this.getBean().setPassword(this.password);
+            String response = this.getBean().insertData(this.username,this.password);
             switch(response){
                 case "usernameUsed":
                     return "usernameUsed";
@@ -39,14 +38,14 @@ public class Register extends ActionSupport implements SessionAware {
         return "invalidCredentials";
     }
 
-    public RegisterBean getRegisterBean() {
-        if(!session.containsKey("registerBean"))
-            this.setRegisterBean(new RegisterBean());
-        return (RegisterBean) session.get("registerBean");
+    public Bean getBean() {
+        if(!session.containsKey("Bean"))
+            this.setBean(new Bean());
+        return (Bean) session.get("Bean");
     }
 
-    private void setRegisterBean(RegisterBean registerBean) {
-        this.session.put("registerBean", registerBean);
+    private void setBean(Bean Bean) {
+        this.session.put("Bean", Bean);
     }
 
     @Override

@@ -1407,26 +1407,29 @@ public class MulticastServer extends Thread implements Serializable {
                                     }
 
                                 }
+                                else {
+                                    albIds = getArtistAlbumsIdByArtistId(id1);
 
-                                albIds = getArtistAlbumsIdByArtistId(id1);
 
+                                    for(Integer ID : albIds){
+                                        stmt = connection.prepareStatement("SELECT * FROM album WHERE id = ?;");
+                                        stmt.setInt(1, ID);
+                                        rs = stmt.executeQuery();
 
-                                for(Integer ID : albIds){
-                                    stmt = connection.prepareStatement("SELECT * FROM album WHERE id = ?;");
-                                    stmt.setInt(1, ID);
-                                    rs = stmt.executeQuery();
-
-                                    while(rs.next()){
-                                        albNames.add(rs.getString("name"));
+                                        while(rs.next()){
+                                            albNames.add(rs.getString("name"));
+                                        }
                                     }
+
+                                    rs.close();
+                                    stmt.close();
+                                    connection.close();
+
+                                    System.out.println("Operation done successfully");
+                                    sendMsg("type|notPartialSearchComplete;Name|"+name1+";Description|"+description1+";Functions|"+printFunctions(isMusician,isBand,isSongwriter,isComposer)+";Albums|"+printAlbuns(albNames));
                                 }
 
-                                rs.close();
-                                stmt.close();
-                                connection.close();
 
-                                System.out.println("Operation done successfully");
-                                sendMsg("type|notPartialSearchComplete;Name|"+name1+";Description|"+description1+";Functions|"+printFunctions(isMusician,isBand,isSongwriter,isComposer)+";Albums|"+printAlbuns(albNames));
                             }
                         } catch ( Exception e ) {
                             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
@@ -1935,10 +1938,10 @@ public class MulticastServer extends Thread implements Serializable {
             finalString += "Musician";
         }
         if(isSongwriter){
-            finalString += ",Songwriter";
+            finalString += ", Songwriter";
         }
         if(isComposer){
-            finalString += ",Composer";
+            finalString += ", Composer";
         }
         if(isBand){
             finalString += "Band";
@@ -1959,7 +1962,7 @@ public class MulticastServer extends Thread implements Serializable {
                 }
                 else{
                     finalString += album_names.get(i);
-                    finalString += ",";
+                    finalString += ", ";
                 }
             }
         }
