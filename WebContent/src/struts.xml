@@ -124,8 +124,14 @@
         <result name="failed">searchArtistInfo.jsp</result>
     </action>
 
-    <action name="makeEditorMenu" class="action.CheckMakeEditorPermissions" method="execute">
+    <action name="makeEditorMenu" class="action.CheckPermissions" method="execute">
         <result name="success">makeEditor.jsp</result>
+        <result name="failed">noPermission.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
+
+    <action name="editorMenu" class="action.CheckPermissions" method="execute">
+        <result name="success">editorMenu.jsp</result>
         <result name="failed">noPermission.jsp</result>
         <result name="rip">sww.jsp</result>
     </action>
@@ -146,8 +152,9 @@
     </action>
 
     <action name="insertCritic" class="action.Critic" method="execute">
-        <result name="success">menuPrincipal.jsp</result>
-        <result name="error">critic.jsp</result>
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">critic.jsp</result>
+        <result name="rip">sww.jsp</result>
     </action>
 
     </package>

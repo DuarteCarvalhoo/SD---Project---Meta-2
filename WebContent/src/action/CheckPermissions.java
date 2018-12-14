@@ -6,7 +6,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import java.rmi.RemoteException;
 import java.util.Map;
-public class CheckMakeEditorPermissions extends ActionSupport implements SessionAware{
+public class CheckPermissions extends ActionSupport implements SessionAware{
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
 

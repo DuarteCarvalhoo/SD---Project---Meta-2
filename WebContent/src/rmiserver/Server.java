@@ -977,14 +977,14 @@ public class Server implements Hello {
     }
 
     ////////////// FAZER CRITICA /////////////
-    public String makeCritic(double score, String text, String album, User user){
+    public String makeCritic(double score, String text, String album, String user){
         MulticastSocket socket = null;
         //envia para o multicast
         try {
             socket = new MulticastSocket();
             InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
             socket.joinGroup(group);
-            String aux = "type|makeCritic;Score|"+score+";Text|"+text+";Album|"+album+";UserId|"+user.getId(); //protocol
+            String aux = "type|makeCritic;Score|"+score+";Text|"+text+";Album|"+album+";Username|"+user; //protocol
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
