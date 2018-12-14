@@ -35,15 +35,16 @@ public class SearchMusicsBySongwriter extends ActionSupport implements SessionAw
     }
     }
 
-    public Bean getBean() {
+    public Bean getBean(){
         if(!session.containsKey("Bean"))
             this.setBean(new Bean());
         return (Bean) session.get("Bean");
     }
 
-    private void setBean(Bean Bean){
-        this.session.put("Bean", Bean);
+    public void setBean(Bean bean) {
+        this.session.put("Bean", bean);
     }
+
 
     @Override
     public void setSession(Map<String, Object> session) {

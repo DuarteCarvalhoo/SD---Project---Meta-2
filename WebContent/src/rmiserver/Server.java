@@ -137,14 +137,7 @@ public class Server implements Hello {
             socket.send(packet);
             //recebe do multicast
             String msg = receiveMulticast();
-            switch (msg){
-                case "type|loginFail":
-                    return "loginFail";
-                case "type|loginComplete":
-                    return "loginComplete";
-                default:
-                    return "somethingWentWrong";
-            }
+            return msg;
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
@@ -698,6 +691,29 @@ public class Server implements Hello {
         if (msg != null) return msg;
 
         return null;
+    }
+
+    public String isEditor(String name) throws RemoteException {
+        MulticastSocket socket = null;
+        //envia para o multicast
+        try {
+            socket = new MulticastSocket();
+            InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
+            socket.joinGroup(group);
+            String aux = "type|checkEditor;Name|"+name; //protocol
+            byte[] buffer = aux.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
+            socket.send(packet);
+            String msg = receiveMulticast();
+            return msg;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            socket.close();
+        }
+
+        //recebe do multicast
+        return "rip";
     }
 
     ///////////// CRIAR!! /////////////

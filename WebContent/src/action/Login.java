@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
 
+import java.rmi.RemoteException;
 import java.util.Map;
 
 public class Login extends ActionSupport implements SessionAware {
@@ -16,14 +17,14 @@ public class Login extends ActionSupport implements SessionAware {
         if((this.username != null && !username.equals("")) && (this.password !=null && !password.equals(""))) {
             this.getBean().setUsername(this.username);
             this.getBean().setPassword(this.password);
+            session.put("username",username);
             String response = this.getBean().getUserMatchesPassword();
-            System.out.println(response);
-            switch(response){
-                case "loginFail":
+            String[] respSplit = response.split(";");
+            switch(respSplit[0]){
+                case "type|loginFail":
                     System.out.println("Entrou fail");
                     return "failed";
-                case "loginComplete":
-                    System.out.println("Entrou success");
+                case "type|loginComplete":
                     return "worked";
                 default:
                     return "rip";
@@ -32,14 +33,14 @@ public class Login extends ActionSupport implements SessionAware {
         return "rip";
     }
 
-    public Bean getBean() {
+    public Bean getBean() throws RemoteException {
         if(!session.containsKey("Bean"))
             this.setBean(new Bean());
         return (Bean) session.get("Bean");
     }
 
-    private void setBean(Bean Bean){
-        this.session.put("Bean", Bean);
+    public void setBean(Bean bean) {
+        this.session.put("Bean", bean);
     }
 
     public void setUsername(String username) {

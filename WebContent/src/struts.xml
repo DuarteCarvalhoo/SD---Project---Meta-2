@@ -124,7 +124,11 @@
         <result name="failed">searchArtistInfo.jsp</result>
     </action>
 
-
+    <action name="makeEditorMenu" class="action.CheckMakeEditorPermissions" method="execute">
+        <result name="success">makeEditor.jsp</result>
+        <result name="failed">noPermission.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
 
     <action name="checkLogin" class="action.Login" method="execute">
         <result name="failed">login.jsp</result>
@@ -134,10 +138,6 @@
 
     <action name="linkCritic">
         <result>critic.jsp</result>
-    </action>
-
-    <action name="makeEditorMenu">
-        <result>makeEditor.jsp</result>
     </action>
 
     <action name="makeEditor" class="action.MakeEditor" method="execute">

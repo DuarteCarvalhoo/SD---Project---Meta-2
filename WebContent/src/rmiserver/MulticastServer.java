@@ -59,8 +59,8 @@ public class MulticastServer extends Thread implements Serializable {
                             } else {
                                 User u = checkUsernameLogin(user, pass);
                                 if(u.getId() != 0){
-                                    /*sendMsg("type|loginComplete;id|" + u.getId()+";editor|"+u.isEditor());*/
-                                    sendMsg("type|loginComplete");//
+                                    sendMsg("type|loginComplete;id|" + u.getId()+";editor|"+u.isEditor());
+                                    //sendMsg("type|loginComplete");//
                                     System.out.println("SUCESSO: Login Completo");
                                     flag = true;
                                 }
@@ -71,6 +71,39 @@ public class MulticastServer extends Thread implements Serializable {
                                 }
                         }
                         catch (org.postgresql.util.PSQLException e){
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case "type|checkEditor":
+                        connection = initConnection();
+                        String nome2;
+                        try{
+                            String[] nome3 = aux[1].split("\\|");
+                            nome2=nome3[1];
+                            if(userDatabaseEmpty()){
+                                connection.close();
+                                sendMsg("type|userDatabaseEmpty");
+                                break;
+                            }else{
+                                boolean editor=false;
+                                connection.setAutoCommit(false);
+                                PreparedStatement st = connection.prepareStatement("SELECT * FROM utilizador WHERE username=?;");
+                                st.setString(1,nome2);
+
+                                ResultSet rs = st.executeQuery();
+                                while(rs.next()){
+                                    editor = rs.getBoolean("iseditor");
+                                }
+                                if(editor){
+                                    sendMsg("type|isEditor");
+                                    break;
+                                }
+                                else{
+                                    sendMsg("type|notEditor");
+                                    break;
+                                }
+                            }
+                        }catch (org.postgresql.util.PSQLException e){
                             System.out.println(e.getMessage());
                         }
                         break;
@@ -487,7 +520,6 @@ public class MulticastServer extends Thread implements Serializable {
                             makeEditor(parts[1]);
                             sendMsg("type|makingEditorComplete");
                             System.out.println("SUCCESS: User "+parts[1]+" made editor.");
-
                         }
                         break;
                     case"type|addNotification":

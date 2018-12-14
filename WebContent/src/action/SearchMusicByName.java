@@ -45,18 +45,18 @@ public class SearchMusicByName extends ActionSupport implements SessionAware {
         return "rip";
     }
 
-    public void setMusicName(String musicName) {
-        this.musicName = musicName;
-    }
-
-    public Bean getBean() {
+    public Bean getBean(){
         if(!session.containsKey("Bean"))
             this.setBean(new Bean());
         return (Bean) session.get("Bean");
     }
 
-    private void setBean(Bean Bean){
-        this.session.put("Bean", Bean);
+    public void setBean(Bean bean) {
+        this.session.put("Bean", bean);
+    }
+
+    public void setMusicName(String musicName) {
+        this.musicName = musicName;
     }
 
     @Override

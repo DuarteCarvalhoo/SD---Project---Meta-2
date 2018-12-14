@@ -151,4 +151,16 @@ public class Bean {
         return response;
     }
 
+    public String isEditor(String name){
+        String response="";
+        try{
+            response = rmi.isEditor(name);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
 }
