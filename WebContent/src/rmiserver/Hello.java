@@ -130,4 +130,6 @@ public interface Hello extends Remote {
     String editAlbumGenre(String album, String genreAfter) throws RemoteException;
 
     String isEditor(String name) throws RemoteException;
+
+    String saveDropboxToken(String token, String name) throws RemoteException;
 }

@@ -32,5 +32,7 @@
     <orderEntry type="module" module-name="ServerClient" />
     <orderEntry type="library" name="postgresql-42.2.5" level="project" />
     <orderEntry type="library" name="postgresql-42.2.51" level="project" />
+    <orderEntry type="library" name="async-http-client-1.9.31" level="project" />
+    <orderEntry type="library" name="bin" level="project" />
   </component>
 </module>

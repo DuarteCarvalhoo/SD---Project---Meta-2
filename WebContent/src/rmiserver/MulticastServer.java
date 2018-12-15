@@ -1560,6 +1560,29 @@ public class MulticastServer extends Thread implements Serializable {
                             }
                         }
                         break;
+                    case "type|saveDropboxToken":
+                        connection = initConnection();
+                        String[] tokenParts = aux[1].split("\\|");
+                        String[] partsName = aux[2].split("\\|");
+                        PreparedStatement stmtToken = null;
+
+                        try{
+                            connection.setAutoCommit(false);
+                            stmtToken = connection.prepareStatement("UPDATE utilizador SET dropbox_access_token = ? WHERE username = ?;");
+                            stmtToken.setString(1,tokenParts[1]);
+                            stmtToken.setString(2,partsName[1]);
+                            stmtToken.executeUpdate();
+
+
+                            connection.commit();
+                            stmtToken.close();
+                            connection.close();
+                            sendMsg("type|authenticationComplete");
+                        }catch(org.postgresql.util.PSQLException e){
+                            System.out.println(e.getMessage());
+                            connection.close();
+                            sendMsg("type|somethingWentWrong");
+                        }
                     case "type|showAlbum":
                         connection = initConnection();
                         String[] albuName = aux[1].split("\\|");

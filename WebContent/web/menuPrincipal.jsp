@@ -15,6 +15,7 @@
         <p><a href="<s:url action="linkUpload" />">Upload a music</a></p>
         <p><a href="<s:url action="linkDownload" />">Download a music</a></p><br><br>
         <p><a href="<s:url action="Logout" />">Sair da conta</a></p>
+        <p><a href="<s:url action="dropboxauth" />">Dropbox</a></p>
 
 
 
