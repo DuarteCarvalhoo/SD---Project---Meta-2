@@ -46,6 +46,10 @@
         <result name="success">menuPrincipal.jsp</result>
     </action>
 
+        <action name="dropboxRedirect" class="action.DropboxAuthRedirect" method="execute">
+            <result name="success">menuPrincipal.jsp</result>
+        </action>
+
     <action name="searchMenu">
         <result>search.jsp</result>
     </action>
@@ -156,6 +160,10 @@
         <result name="failed">critic.jsp</result>
         <result name="rip">sww.jsp</result>
     </action>
+
+        <action name="dropboxauth" class="action.DropboxAuth" method="execute">
+            <result name="redirect" type="redirect">${url}</result>
+        </action>
 
     </package>
 </struts>

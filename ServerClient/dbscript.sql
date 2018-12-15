@@ -54,6 +54,7 @@ CREATE TABLE utilizador (
   username VARCHAR(512) UNIQUE NOT NULL,
   password VARCHAR(512) NOT NULL,
   iseditor BOOL NOT NULL,
+  dropbox_access_token VARCHAR(512),
   PRIMARY KEY(id)
 );
 
