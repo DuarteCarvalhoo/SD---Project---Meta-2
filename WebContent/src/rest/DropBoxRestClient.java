@@ -79,8 +79,15 @@ public class DropBoxRestClient {
 		JSONArray contents = (JSONArray) rj.get("entries");
 		for (int i=0; i<contents.size(); i++) {
 			JSONObject item = (JSONObject) contents.get(i);
+			String isFolder = (String) item.get(".tag");
+			String folderPath = (String) item.get("");
+			if(isFolder.equals("folder")){
+                String path = (String) item.get("name");
+                System.out.println("\t - " + path);
+                listFiles();
+            }
 			String path = (String) item.get("name");
-			System.out.println(" - " + path);
+			System.out.println("\t\t - " + path);
 		}
 	}
 
