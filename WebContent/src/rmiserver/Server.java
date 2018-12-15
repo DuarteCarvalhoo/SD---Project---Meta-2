@@ -716,14 +716,36 @@ public class Server implements Hello {
         return "rip";
     }
 
-    public String saveDropboxToken(String token, String name) throws RemoteException {
+    public String saveDropboxToken(String token, String name, String mail) throws RemoteException {
         MulticastSocket socket = null;
         //envia para o multicast
         try {
             socket = new MulticastSocket();
             InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
             socket.joinGroup(group);
-            String aux = "type|saveDropboxToken;Token|"+token+";Username|"+name; //protocol
+            String aux = "type|saveDropboxToken;Token|"+token+";Username|"+name+";Mail|"+mail; //protocol
+            byte[] buffer = aux.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
+            socket.send(packet);
+            String msg = receiveMulticast();
+            return msg;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            socket.close();
+        }
+        return "rip";
+    }
+
+    @Override
+    public String getDropboxInfo(String username) {
+        MulticastSocket socket = null;
+        //envia para o multicast
+        try {
+            socket = new MulticastSocket();
+            InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
+            socket.joinGroup(group);
+            String aux = "type|getDropboxInfo;Username|"+username;
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);

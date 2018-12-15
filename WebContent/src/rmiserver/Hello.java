@@ -131,5 +131,7 @@ public interface Hello extends Remote {
 
     String isEditor(String name) throws RemoteException;
 
-    String saveDropboxToken(String token, String name) throws RemoteException;
+    String saveDropboxToken(String token, String name, String mail) throws RemoteException;
+
+    String getDropboxInfo(String username) throws RemoteException;
 }
