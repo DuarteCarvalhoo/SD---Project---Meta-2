@@ -15,12 +15,8 @@ public class Upload extends DropBoxRestClient implements SessionAware{
     public String execute() {
         try{
             OAuthService service = createService();
-            //String response = this.getBean().getDropboxToken(session.get("username").toString());
             Token accessToken = new Token("bMizrFH9wWAAAAAAAAAAP2hBepD34Q10cHLJ-AffWglMzTSGFWuG3ziT5HoWiU9D","");
-            //addFile("/Users/fabio/Desktop/oof.txt",service,accessToken,);
-            //listFiles(service,accessToken);
-            String fileId = getFileMetadata("/Apps/2018-SD/Contacts.txt",service,accessToken);
-            shareFile("fabiocordeiro1998@gmail.com",fileId,service,accessToken);
+            listFiles(service,accessToken);
             return "success";
         }catch(Exception e){
             System.out.println(e.getMessage());
