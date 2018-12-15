@@ -163,4 +163,17 @@ public class Bean {
         return response;
     }
 
+    //DROPBOX
+    public String saveDropboxToken(String token, String name){
+        String response="";
+        try{
+            response = rmi.saveDropboxToken(token,name);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
 }

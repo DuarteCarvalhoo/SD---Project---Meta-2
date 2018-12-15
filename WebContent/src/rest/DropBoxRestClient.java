@@ -1,16 +1,22 @@
 package rest;
 
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.exceptions.OAuthException;
-import com.github.scribejava.core.model.*;
-import com.github.scribejava.core.oauth.OAuthService;
+import java.util.Scanner;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+
+import com.github.scribejava.apis.DropBoxApi;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.exceptions.OAuthException;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Token;
+import com.github.scribejava.core.model.Verb;
+import com.github.scribejava.core.model.Verifier;
+import com.github.scribejava.core.oauth.OAuthService;
+
 import uc.sd.apis.DropBoxApi2;
-
-import java.util.Scanner;
-
 
 
 // Step 1: Create Dropbox Account
@@ -31,8 +37,7 @@ public class DropBoxRestClient {
         return accessToken.getSecret();
     }
 
-    public static Token getAccessToken(Scanner in, OAuthService service) {
-        Verifier verifier = new Verifier(in.nextLine());
+    public static Token getAccessToken(Scanner in, OAuthService service, Verifier verifier) {
         return service.getAccessToken(null, verifier);
     }
 
