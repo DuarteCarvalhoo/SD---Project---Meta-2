@@ -18,7 +18,8 @@ public class DropboxAuthRedirect extends DropBoxRestClient implements SessionAwa
         setCode(code);
         Verifier verifier = new Verifier(code);
         Token accessToken = service.getAccessToken(null,verifier);
-        String response = this.getBean().saveDropboxToken(accessToken.getToken(),session.get("username").toString());
+        String targetMail = getCurrentAccountMail(service,accessToken);
+        String response = this.getBean().saveDropboxInfo(accessToken.getToken(),session.get("username").toString(),targetMail);
         String[] respSplit = response.split(";");
         switch(respSplit[0]){
             case "type|authenticationComplete":

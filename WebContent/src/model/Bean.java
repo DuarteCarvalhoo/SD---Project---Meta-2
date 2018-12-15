@@ -164,10 +164,22 @@ public class Bean {
     }
 
     //DROPBOX
-    public String saveDropboxToken(String token, String name){
+    public String saveDropboxInfo(String token, String name, String mail){
         String response="";
         try{
-            response = rmi.saveDropboxToken(token,name);
+            response = rmi.saveDropboxToken(token,name,mail);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String getDropboxInfo(String username){
+        String response="";
+        try{
+            response = rmi.getDropboxInfo(username);
             return response;
         }catch (RemoteException e){
             response="rip";

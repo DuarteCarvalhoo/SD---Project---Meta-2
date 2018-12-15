@@ -46,9 +46,18 @@
         <result name="success">menuPrincipal.jsp</result>
     </action>
 
-        <action name="dropboxRedirect" class="action.DropboxAuthRedirect" method="execute">
+    <action name="dropboxRedirect" class="action.DropboxAuthRedirect" method="execute">
+        <result name="success">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
+
+    <action name="uploadMenu">
+        <result>uploadMenu.jsp</result>
+    </action>
+
+        <action name="upload" class="action.Upload" method="execute">
             <result name="success">menuPrincipal.jsp</result>
-            <result name="failed">sww.jsp</result>
             <result name="rip">sww.jsp</result>
         </action>
 
@@ -163,9 +172,20 @@
         <result name="rip">sww.jsp</result>
     </action>
 
-        <action name="dropboxauth" class="action.DropboxAuth" method="execute">
-            <result name="redirect" type="redirect">${url}</result>
-        </action>
+    <action name="dropboxauth" class="action.DropboxAuth" method="execute">
+        <result name="redirect" type="redirect">${url}</result>
+    </action>
+
+    <action name="shareMusic">
+        <result>share.jsp</result>
+    </action>
+
+    <action name="share" class="action.Share" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
+
 
     </package>
 </struts>
