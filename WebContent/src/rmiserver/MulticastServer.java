@@ -2083,10 +2083,10 @@ public class MulticastServer extends Thread implements Serializable {
             finalString += "Musician";
         }
         if(isSongwriter){
-            finalString += ", Songwriter";
+            finalString += ",Songwriter";
         }
         if(isComposer){
-            finalString += ", Composer";
+            finalString += ",Composer";
         }
         if(isBand){
             finalString += "Band";
