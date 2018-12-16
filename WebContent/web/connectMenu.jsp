@@ -10,7 +10,7 @@
 <h2>Files:</h2>
 <p>${files}</p><br>
 
-<s:form action="upload" method="post">
+<s:form action="connect" method="post">
     <s:text name="Dropbox filepath(association):" />
     <s:textfield name="dbfilePath"/><br><br>
     <s:text name="Music name:" />

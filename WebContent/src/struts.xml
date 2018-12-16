@@ -47,7 +47,13 @@
     </action>
 
     <action name="playBrowser" class="action.GetMusic" method="execute">
+        <result name="redirect" type="redirect">${url}</result>
+    </action>
+
+    <action name="playMenu" class="action.ConnectMenu" method="execute">
         <result name="success">playBrowser.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="failed">sww.jsp</result>
     </action>
 
     <action name="dropboxRedirect" class="action.DropboxAuthRedirect" method="execute">

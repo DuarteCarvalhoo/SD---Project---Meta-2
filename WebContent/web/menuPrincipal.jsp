@@ -13,6 +13,7 @@
         <p><a href="<s:url action="makeEditorMenu" />">Make editor</a></p>
         <p><a href="<s:url action="shareMusic" />">Share music</a></p>
         <p><a href="<s:url action="connectMenu" />">Connect a music</a></p>
+        <p><a href="<s:url action="playMenu"/>">Play a connected music</a></p>
         <p><a href="<s:url action="Logout" />">Sair da conta</a></p><br><br>
         <p><a href="<s:url action="dropboxauth" />">Connect to Dropbox!</a></p>
 
