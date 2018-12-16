@@ -23,7 +23,9 @@ public class SearchAlbumByArtist extends ActionSupport implements SessionAware{
                     return "failed";
                 case "type|showArtistAlbumsComplete":
                     String[] albumParts = respSplit[1].split("\\|");
-                    session.put("albums",albumParts[1]);
+                    String[] albums = albumParts[1].split(",");
+                    session.put("artist",this.artistName);
+                    session.put("albums",albums);
                     return "worked";
                 default:
                     return "rip";

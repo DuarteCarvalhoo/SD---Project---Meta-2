@@ -22,7 +22,8 @@ public class SearchAlbumByName extends ActionSupport implements SessionAware {
                     return "failed";
                 case "type|partialSearchAlbumComplete":
                     String[] results = respSplit[1].split("\\|");
-                    session.put("albums",results[1]);
+                    String[] res = results[1].split(",");
+                    session.put("albums",res);
                     return "workedP";
                 case "type|notPartialSearchAlbumComplete":
                     String[] nameParts = respSplit[1].split("\\|");
