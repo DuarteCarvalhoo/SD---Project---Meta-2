@@ -8,5 +8,6 @@
   Welcome to Dropmusic!
   <p><a href="<s:url action="signup" />">Sign up</a></p>
   <p><a href="<s:url action="login" />">Login</a></p>
+  <p><a href="<s:url action="dropboxauth" />">Login with Dropbox</a></p>
   </body>
 </html>

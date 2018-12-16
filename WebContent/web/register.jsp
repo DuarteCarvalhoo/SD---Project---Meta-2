@@ -15,7 +15,6 @@
         <s:password name="password"/><br>
         <s:submit/>
     </s:form>
-    <p><a href="<s:url action="menuPrincipal" />">Menu</a></p>
     <p><a href="<s:url action="index" />">Back</a></p>
 </body>
 </html>
