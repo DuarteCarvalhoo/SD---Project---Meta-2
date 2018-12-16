@@ -134,4 +134,6 @@ public interface Hello extends Remote {
     String saveDropboxToken(String token, String name, String mail) throws RemoteException;
 
     String getDropboxInfo(String username) throws RemoteException;
+
+    String connectMusicFile(String musicName, String dbFileId) throws RemoteException;
 }

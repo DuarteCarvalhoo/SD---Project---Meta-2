@@ -52,14 +52,14 @@
         <result name="rip">sww.jsp</result>
     </action>
 
-    <action name="uploadMenu">
-        <result>uploadMenu.jsp</result>
+    <action name="connectMenu" class="action.ConnectMenu" method="execute">
+        <result>connectMenu.jsp</result>
     </action>
 
-        <action name="upload" class="action.Upload" method="execute">
-            <result name="success">menuPrincipal.jsp</result>
-            <result name="rip">sww.jsp</result>
-        </action>
+    <action name="connect" class="action.Connect" method="execute">
+        <result name="success">menuPrincipal.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
 
     <action name="searchMenu">
         <result>search.jsp</result>

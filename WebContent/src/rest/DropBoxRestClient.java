@@ -54,35 +54,87 @@ public class DropBoxRestClient {
         .build();
     }
 
-    public static void listFiles(OAuthService service, Token accessToken) {
+    public static String listFiles(String folderPath, OAuthService service, Token accessToken, String finalString) {
 		OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.dropboxapi.com/2/files/list_folder", service);
 		request.addHeader("authorization", "Bearer " + accessToken.getToken());
 		request.addHeader("Content-Type",  "application/json");
-		request.addPayload("{\n" + 
-				"    \"path\": \"\",\n" + 
-				"    \"recursive\": false,\n" + 
-				"    \"include_media_info\": false,\n" + 
-				"    \"include_deleted\": false,\n" + 
-				"    \"include_has_explicit_shared_members\": false,\n" + 
-				"    \"include_mounted_folders\": true\n" + 
+		request.addPayload("{\n" +
+				"    \"path\":\""+folderPath+"\",\n" +
+				"    \"recursive\": true,\n" +
+				"    \"include_media_info\": false,\n" +
+				"    \"include_deleted\": false,\n" +
+				"    \"include_has_explicit_shared_members\": false,\n" +
+				"    \"include_mounted_folders\": true\n" +
 				"}");
-		
+
 		Response response = request.send();
 		System.out.println("Got it! Lets see what we found...");
 		System.out.println("HTTP RESPONSE: =============");
 		System.out.println(response.getCode());
 		System.out.println(response.getBody());
 		System.out.println("END RESPONSE ===============");
-		
-		
+
 		JSONObject rj = (JSONObject) JSONValue.parse(response.getBody());
 		JSONArray contents = (JSONArray) rj.get("entries");
-		for (int i=0; i<contents.size(); i++) {
-			JSONObject item = (JSONObject) contents.get(i);
-			String path = (String) item.get("name");
-			System.out.println(" - " + path);
-		}
+		Boolean hasMore = (Boolean) rj.get("has_more");
+		String cursor = (String) rj.get("cursor");
+        for (int i=0; i<contents.size(); i++) {
+            JSONObject item = (JSONObject) contents.get(i);
+            String isFolder = (String) item.get(".tag");
+            if(isFolder.equals("folder")){
+                String fPath = (String) item.get("path_display");
+                String path = (String) item.get("name");
+            }
+            else{
+                String fPath = (String) item.get("path_display");
+                String path = (String) item.get("name");
+                finalString+= "'" + path+"' in "+fPath+"<br>";
+            }
+        }
+		if(hasMore){
+		    finalString = listAllFiles(service,accessToken,finalString,cursor);
+        }
+		return finalString;
 	}
+
+    public static String listAllFiles(OAuthService service, Token accessToken, String finalString, String cursor) {
+        OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.dropboxapi.com/2/files/list_folder/continue", service);
+        request.addHeader("authorization", "Bearer " + accessToken.getToken());
+        request.addHeader("Content-Type",  "application/json");
+        request.addPayload("{\"cursor\": \""+cursor+"\"}");
+
+        Response response = request.send();
+        System.out.println("Got it! Lets see what we found...");
+        System.out.println("HTTP RESPONSE: =============");
+        System.out.println(response.getCode());
+        System.out.println(response.getBody());
+        System.out.println("END RESPONSE ===============");
+
+        JSONObject rj = (JSONObject) JSONValue.parse(response.getBody());
+        JSONArray contents = (JSONArray) rj.get("entries");
+        Boolean hasMore = (Boolean) rj.get("has_more");
+        String cursor1 = (String) rj.get("cursor");
+        for (int i=0; i<contents.size(); i++) {
+            JSONObject item = (JSONObject) contents.get(i);
+            String isFolder = (String) item.get(".tag");
+            if(isFolder.equals("folder")){
+                String fPath = (String) item.get("path_display");
+                String path = (String) item.get("name");
+            }
+            else{
+                String fPath = (String) item.get("path_display");
+                String path = (String) item.get("name");
+                finalString+= "'" + path+"' in "+fPath+"<br>";
+            }
+        }
+        if(hasMore){
+            finalString = listAllFiles(service,accessToken,finalString,cursor1);
+        }
+        return finalString;
+    }
+
+
+
 
     public static void addFile(String path1, OAuthService service, Token accessToken) {
         OAuthRequest request = new OAuthRequest(Verb.POST, "https://content.dropboxapi.com/2/files/upload", service);
@@ -101,7 +153,7 @@ public class DropBoxRestClient {
         OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.dropboxapi.com/2/files/get_metadata", service);
         request.addHeader("authorization", "Bearer " + accessToken.getToken());
         request.addHeader("Content-Type",  "application/json");
-        request.addPayload("{\"path\":\"/Apps/2018-SD/Contacts.txt\"}");
+        request.addPayload("{\"path\":\""+filePath+"\"}");
 
         Response response = request.send();
         System.out.println("Got it! Lets see what we found...");
@@ -131,12 +183,8 @@ public class DropBoxRestClient {
         return (String) rj.get("email");
     }
 
-    public static void deleteFile(String path, OAuthService service, Token accessToken) {
-      // TODO
-	}
 
 	public static void shareFile(String mail,String fileId ,OAuthService service, Token accessToken){
-        System.out.println("fileId:"+fileId+"     token"+accessToken.getToken());
         OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.dropboxapi.com/2/sharing/add_file_member", service);
         request.addHeader("authorization", "Bearer " + accessToken.getToken());
         request.addHeader("Content-Type",  "application/json");
