@@ -23,8 +23,14 @@
     </global-exception-mappings>
 
 
-    <action name="index">
-        <result>/index.jsp</result>
+    <action name="index" class="action.Index" method="execute">
+        <result name="success">/index.jsp</result>
+    </action>
+
+    <action name="dropboxLogin" class="action.DropboxLogin" method="execute">
+        <result name="success">login.jsp</result>
+        <result name="rip">sww.jsp</result>
+        <result name="usernameUsed">index.jsp</result>
     </action>
 
     <action name="signup">
@@ -49,6 +55,7 @@
     <action name="dropboxRedirect" class="action.DropboxAuthRedirect" method="execute">
         <result name="success">menuPrincipal.jsp</result>
         <result name="failed">sww.jsp</result>
+        <result name="failedLogin">register.jsp</result>
         <result name="rip">sww.jsp</result>
     </action>
 

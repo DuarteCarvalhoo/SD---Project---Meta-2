@@ -338,6 +338,32 @@ public class MulticastServer extends Thread implements Serializable {
                             }
                         }
                         break;
+                    case "type|checkKnownEmail":
+                        connection = initConnection();
+                        String[] email = aux[1].split("\\|");
+                        String u = "";
+
+                        try{
+                            PreparedStatement stmtCheckEmail = connection.prepareStatement("SELECT * FROM utilizador WHERE dropbox_email=?;");
+                            stmtCheckEmail.setString(1,email[1]);
+
+                            ResultSet rs = stmtCheckEmail.executeQuery();
+                            if(rs.next()){
+                                u = rs.getString("username");
+                                stmtCheckEmail.close();
+                                connection.close();
+                                sendMsg("type|accountExists;User|"+u);
+                            }
+                            else{
+                                sendMsg("type|accountDoesNotExist");
+                            }
+                        }catch (org.postgresql.util.PSQLException e) {
+                            System.out.println(e.getMessage());
+                            connection.close();
+                            sendMsg("type|somethingWentWrong");
+                        }
+
+                        break;
                     case "type|shareMusic":
                         connection = initConnection();
                         String[] musicParts = aux[2].split("\\|");

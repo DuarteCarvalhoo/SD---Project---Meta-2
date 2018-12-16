@@ -201,4 +201,15 @@ public class Bean {
         return response;
     }
 
+    public String checkKnownEmail(String email) {
+        String response="";
+        try{
+            response = rmi.checkKnownEmail(email);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
 }
