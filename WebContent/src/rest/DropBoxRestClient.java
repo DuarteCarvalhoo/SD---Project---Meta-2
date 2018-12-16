@@ -1,5 +1,7 @@
 package rest;
 
+import java.awt.event.ContainerEvent;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -148,6 +150,19 @@ public class DropBoxRestClient {
         System.out.println(response.getBody());
         System.out.println("END RESPONSE ===============");
 	}
+
+	public static void downloadFile(String path1, OAuthService service, Token accessToken){
+        OAuthRequest request = new OAuthRequest(Verb.POST, "https://content.dropboxapi.com/2/files/download", service);
+        request.addHeader("authorization", "Bearer " + accessToken.getToken());
+        request.addHeader("Dropbox-API-Arg",  "{\"path\":\""+path1+"\"}");
+        request.addHeader("Content-Type","application/octet-stream");
+        Response response = request.send();
+        System.out.println("Got it! Lets see what we found...");
+        System.out.println("HTTP RESPONSE: =============");
+        System.out.println(response.getCode());
+        System.out.println(response.getBody());
+        System.out.println("END RESPONSE ===============");
+    }
 
 	public static String getFileMetadata(String filePath, OAuthService service, Token accessToken){
         OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.dropboxapi.com/2/files/get_metadata", service);

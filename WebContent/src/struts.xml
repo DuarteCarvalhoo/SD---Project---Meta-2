@@ -46,6 +46,10 @@
         <result name="success">menuPrincipal.jsp</result>
     </action>
 
+    <action name="playBrowser" class="action.GetMusic" method="execute">
+        <result name="success">playBrowser.jsp</result>
+    </action>
+
     <action name="dropboxRedirect" class="action.DropboxAuthRedirect" method="execute">
         <result name="success">menuPrincipal.jsp</result>
         <result name="failed">sww.jsp</result>
