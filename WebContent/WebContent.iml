@@ -34,5 +34,6 @@
     <orderEntry type="library" name="postgresql-42.2.51" level="project" />
     <orderEntry type="library" name="async-http-client-1.9.31" level="project" />
     <orderEntry type="library" name="bin" level="project" />
+    <orderEntry type="library" name="websocket-api" level="project" />
   </component>
 </module>
