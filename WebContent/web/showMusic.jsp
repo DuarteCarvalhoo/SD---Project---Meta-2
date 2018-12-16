@@ -1,9 +1,11 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Dropmusic - Music View</title>
 </head>
+<h2>${title}'s information</h2>
 <body>
 <a>Title: ${title}</a><br>
 <a>Artist: ${artist}</a><br>
