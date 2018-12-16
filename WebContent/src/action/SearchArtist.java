@@ -25,7 +25,8 @@ public class SearchArtist extends ActionSupport implements SessionAware {
                     return "failed";
                 case "type|partialSearchComplete":
                     String[] results = respSplit[1].split("\\|");
-                    session.put("artists",results[1]);
+                    String[] res = results[1].split(",");
+                    session.put("artists",res);
                     return "workedP";
                 case "type|notPartialSearchComplete":
                     String[] nameParts = respSplit[1].split("\\|");
