@@ -12,7 +12,7 @@
         <p><a href="<s:url action="linkCritic" />">Make a Critic</a></p>
         <p><a href="<s:url action="makeEditorMenu" />">Make editor</a></p>
         <p><a href="<s:url action="shareMusic" />">Share music</a></p>
-        <p><a href="<s:url action="uploadMenu" />">Connect a music</a></p>
+        <p><a href="<s:url action="connectMenu" />">Connect a music</a></p>
         <p><a href="<s:url action="Logout" />">Sair da conta</a></p>
         <p><a href="<s:url action="dropboxauth" />">Connecti to Dropbox!</a></p>
 

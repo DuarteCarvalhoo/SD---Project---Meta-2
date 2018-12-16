@@ -7,7 +7,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import rest.DropBoxRestClient;
 import java.util.Map;
 
-public class uploadMenu extends DropBoxRestClient implements SessionAware{
+public class ConnectMenu extends DropBoxRestClient implements SessionAware{
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
 

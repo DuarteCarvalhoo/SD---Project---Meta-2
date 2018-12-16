@@ -1,14 +1,13 @@
 package action;
 
 import com.github.scribejava.core.model.Token;
-import com.github.scribejava.core.model.Verifier;
 import com.github.scribejava.core.oauth.OAuthService;
 import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
 import rest.DropBoxRestClient;
 import java.util.Map;
 
-public class Upload extends DropBoxRestClient implements SessionAware{
+public class Connect extends DropBoxRestClient implements SessionAware{
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
     private String dbfilePath="",musicName="";
