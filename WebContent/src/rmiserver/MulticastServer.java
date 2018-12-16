@@ -346,7 +346,6 @@ public class MulticastServer extends Thread implements Serializable {
                         try{
                             PreparedStatement stmtCheckEmail = connection.prepareStatement("SELECT * FROM utilizador WHERE dropbox_email=?;");
                             stmtCheckEmail.setString(1,email[1]);
-
                             ResultSet rs = stmtCheckEmail.executeQuery();
                             if(rs.next()){
                                 u = rs.getString("username");
