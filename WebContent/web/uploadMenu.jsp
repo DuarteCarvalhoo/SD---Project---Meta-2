@@ -6,22 +6,16 @@
 </head>
 <body>
 
-<h1>Upload Music</h1>
+<h1>Connect Music to Dropbox file</h1>
+<h2>Files:</h2>
+<p>${files}</p><br>
 
 <s:form action="upload" method="post">
-    <s:text name="Music path:" />
-    <s:textfield name="musicPath"/><br><br>
-    <s:text name="Music composer:" />
-    <s:textfield name="musiccomposer"/><br><br>
-    <s:text name="Music songwriter:" />
-    <s:textfield name="musicSongwriter"/><br><br>
-    <s:text name="Music artist:" />
-    <s:textfield name="musicArtist"/><br><br>
-    <s:text name="Music album:" />
-    <s:textfield name="musicAlbum"/><br><br>
-    <s:text name="Music length:" />
-    <s:textfield name="musicLength"/><br><br>
-    <s:submit value="Upload"/>
+    <s:text name="Dropbox filepath(association):" />
+    <s:textfield name="dbfilePath"/><br><br>
+    <s:text name="Music name:" />
+    <s:textfield name="musicName"/><br><br>
+    <s:submit value="Connect"/>
 </s:form>
 <p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>
 </body>

@@ -63,6 +63,7 @@ CREATE TABLE filearchive (
   path		 VARCHAR(512) NOT NULL,
   utilizador_id INTEGER,
   music_id	 INTEGER,
+  dbfile_id VARCHAR(512),
   PRIMARY KEY(utilizador_id,music_id)
 );
 
@@ -129,6 +130,7 @@ CREATE TABLE utilizador_filearchive (
   filearchive_music_id	 INTEGER,
   PRIMARY KEY(utilizador_id,filearchive_utilizador_id,filearchive_music_id)
 );
+
 
 ALTER TABLE album ADD CONSTRAINT album_fk1 FOREIGN KEY (publisher_id) REFERENCES publisher(id);
 ALTER TABLE critic ADD CONSTRAINT critic_fk1 FOREIGN KEY (album_id) REFERENCES album(id);

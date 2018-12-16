@@ -309,6 +309,35 @@ public class MulticastServer extends Thread implements Serializable {
                             sendMsg("type|somethingWentWrong");
                         }
                         break;
+                    case "type|connectMusicFile":
+                        connection = initConnection();
+                        String[] partsMusic = aux[1].split("\\|");
+                        String[] partsDb = aux[2].split("\\|");
+
+                        int musicd = getMusicIdByName(partsMusic[1]);
+                        if(musicd==0){
+                            connection.close();
+                            sendMsg("type|connectionFailed");
+                            System.out.println("Invalid music.");
+                        }else{
+                            try{
+                                connection.setAutoCommit(false);
+                                PreparedStatement stmtConnect = connection.prepareStatement("UPDATE filearchive SET dbfile_id = ? WHERE music_id = ?;");
+                                stmtConnect.setString(1,partsDb[1]);
+                                stmtConnect.setInt(2,musicd);
+                                stmtConnect.executeUpdate();
+
+                                stmtConnect.close();
+                                connection.commit();
+                                connection.close();
+                                sendMsg("type|connectionComplete");
+                            }catch(org.postgresql.util.PSQLException e){
+                                System.out.println(e.getMessage());
+                                connection.close();
+                                sendMsg("type|connectionFailed");
+                            }
+                        }
+                        break;
                     case "type|shareMusic":
                         connection = initConnection();
                         String[] musicParts = aux[2].split("\\|");
@@ -1564,12 +1593,18 @@ public class MulticastServer extends Thread implements Serializable {
                         connection = initConnection();
                         String[] tokenParts = aux[1].split("\\|");
                         String[] partsName = aux[2].split("\\|");
+                        String[] partsMail = aux[3].split("\\|");
                         PreparedStatement stmtToken = null;
 
                         try{
                             connection.setAutoCommit(false);
                             stmtToken = connection.prepareStatement("UPDATE utilizador SET dropbox_access_token = ? WHERE username = ?;");
                             stmtToken.setString(1,tokenParts[1]);
+                            stmtToken.setString(2,partsName[1]);
+                            stmtToken.executeUpdate();
+
+                            stmtToken = connection.prepareStatement("UPDATE utilizador SET dropbox_email = ? WHERE username = ?;");
+                            stmtToken.setString(1,partsMail[1]);
                             stmtToken.setString(2,partsName[1]);
                             stmtToken.executeUpdate();
 

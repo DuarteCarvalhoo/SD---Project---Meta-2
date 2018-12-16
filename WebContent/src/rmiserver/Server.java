@@ -737,7 +737,6 @@ public class Server implements Hello {
         return "rip";
     }
 
-    @Override
     public String getDropboxInfo(String username) {
         MulticastSocket socket = null;
         //envia para o multicast
@@ -746,6 +745,27 @@ public class Server implements Hello {
             InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
             socket.joinGroup(group);
             String aux = "type|getDropboxInfo;Username|"+username;
+            byte[] buffer = aux.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
+            socket.send(packet);
+            String msg = receiveMulticast();
+            return msg;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            socket.close();
+        }
+        return "rip";
+    }
+
+    public String connectMusicFile(String musicName, String dbFileId){
+        MulticastSocket socket = null;
+        //envia para o multicast
+        try {
+            socket = new MulticastSocket();
+            InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
+            socket.joinGroup(group);
+            String aux = "type|connectMusicFile;Music|"+musicName+";dbFileId|"+dbFileId;
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);

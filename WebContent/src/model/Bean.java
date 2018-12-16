@@ -188,4 +188,17 @@ public class Bean {
         return response;
     }
 
+    //CONNECT
+    public String connectMusicFile(String musicName, String dbFileId){
+        String response="";
+        try{
+            response = rmi.connectMusicFile(musicName,dbFileId);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
 }

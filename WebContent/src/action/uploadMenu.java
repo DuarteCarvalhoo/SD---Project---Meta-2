@@ -1,20 +1,19 @@
 package action;
 
 import com.github.scribejava.core.model.Token;
-import com.github.scribejava.core.model.Verifier;
 import com.github.scribejava.core.oauth.OAuthService;
 import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
 import rest.DropBoxRestClient;
 import java.util.Map;
 
-public class Upload extends DropBoxRestClient implements SessionAware{
+public class uploadMenu extends DropBoxRestClient implements SessionAware{
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
-    private String dbfilePath="",musicName="";
 
     public String execute() {
         try {
+            String files = "";
             OAuthService service = createService();
             String response = this.getBean().getDropboxInfo(session.get("username").toString());
             String[] respSplit = response.split(";");
@@ -26,17 +25,13 @@ public class Upload extends DropBoxRestClient implements SessionAware{
                     if (mailParts[1].equals("null")) {
                         return "failed";
                     }
-                    String[] tokenParts = respSplit[1].split("\\|");
+                    String resp = this.getBean().getDropboxInfo(session.get("username").toString());
+                    String[] respSpli = resp.split(";");
+                    String[] tokenParts = respSpli[1].split("\\|");
                     Token accessToken = new Token(tokenParts[1], "");
-                    String fileId = getFileMetadata(dbfilePath,service,accessToken);
-                    String r = this.getBean().connectMusicFile(musicName,fileId);
-                    switch(r){
-                        case "type|connectionComplete":
-                            return "success";
-                        default:
-                            return "rip";
-                    }
-
+                    files = listFiles("", service, accessToken, files);
+                    session.put("files",files);
+                    return "success";
                 default:
                     return "rip";
 
@@ -61,11 +56,4 @@ public class Upload extends DropBoxRestClient implements SessionAware{
         this.session = session;
     }
 
-    public void setDbfilePath(String dbfilePath) {
-        this.dbfilePath = dbfilePath;
-    }
-
-    public void setMusicName(String musicName) {
-        this.musicName = musicName;
-    }
 }
