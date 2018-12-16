@@ -53,7 +53,7 @@
     </action>
 
     <action name="connectMenu" class="action.ConnectMenu" method="execute">
-        <result>uploadMenu.jsp</result>
+        <result>connectMenu.jsp</result>
     </action>
 
     <action name="connect" class="action.Connect" method="execute">
