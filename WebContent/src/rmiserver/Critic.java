@@ -29,7 +29,7 @@ public class Critic implements Serializable {
     }
 
     public String toString(){
-        return getUser() + ", " + getText() + ", "+ getScore();
+        return "'" + getText() + "' by "+ getUser() + " scored " + getScore();
     }
 
     public Critic(double score, String text, String user) {

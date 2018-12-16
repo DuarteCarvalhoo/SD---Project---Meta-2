@@ -2288,7 +2288,7 @@ public class MulticastServer extends Thread implements Serializable {
                 }
                 else{
                     finalString += m.get(i).toString();
-                    finalString += ", ";
+                    finalString += ",";
                 }
             }
         }
