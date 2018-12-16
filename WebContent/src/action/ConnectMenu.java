@@ -34,7 +34,6 @@ public class ConnectMenu extends DropBoxRestClient implements SessionAware{
                     return "success";
                 default:
                     return "rip";
-
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
