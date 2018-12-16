@@ -3,6 +3,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import model.Bean;
 import org.apache.struts2.interceptor.SessionAware;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class SearchAlbumByName extends ActionSupport implements SessionAware {
@@ -21,7 +22,8 @@ public class SearchAlbumByName extends ActionSupport implements SessionAware {
                     return "failed";
                 case "type|partialSearchAlbumComplete":
                     String[] results = respSplit[1].split("\\|");
-                    session.put("albums",results[1]);
+                    String[] res = results[1].split(",");
+                    session.put("albums",res);
                     return "workedP";
                 case "type|notPartialSearchAlbumComplete":
                     String[] nameParts = respSplit[1].split("\\|");
@@ -31,9 +33,10 @@ public class SearchAlbumByName extends ActionSupport implements SessionAware {
                     String[] scoreParts = respSplit[6].split("\\|");
                     String[] lengthParts = respSplit[4].split("\\|");
                     String[] criticParts = respSplit[7].split("\\|");
+                    String[] critics = criticParts[1].split("!");
                     String[] musicsParts = respSplit[8].split("\\|");
+                    String[] musics = musicsParts[1].split(",");
                     String[] publisherParts = respSplit[9].split("\\|");
-
 
                     session.put("name",nameParts[1]);
                     session.put("length",lengthParts[1]);
@@ -41,8 +44,8 @@ public class SearchAlbumByName extends ActionSupport implements SessionAware {
                     session.put("score",scoreParts[1]);
                     session.put("description",descParts[1]);
                     session.put("genre",genreParts[1]);
-                    session.put("critics",criticParts[1]);
-                    session.put("musics",musicsParts[1]);
+                    session.put("critics",critics);
+                    session.put("musics",musics);
                     session.put("publisher",publisherParts[1]);
                     return "worked";
                 default:

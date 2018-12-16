@@ -22,7 +22,8 @@ public class SearchMusicByName extends ActionSupport implements SessionAware {
                     return "failed";
                 case "type|partialSearchComplete":
                     String[] results = respSplit[1].split("\\|");
-                    session.put("musics",results[1]);
+                    String[] res = results[1].split(",");
+                    session.put("musics",res);
                     return "workedP";
                 case "type|notPartialSearchComplete":
                     String[] nameParts = respSplit[1].split("\\|");
