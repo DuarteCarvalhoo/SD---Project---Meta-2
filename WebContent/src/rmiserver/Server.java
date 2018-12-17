@@ -56,6 +56,7 @@ public class Server implements Hello {
     private String MULTICAST_ADDRESS = "224.0.224.0";
     private int PORT = 4321;
     private ArrayList<User> userOnlines = new ArrayList<>();
+    private ArrayList<String> usersOnlines = new ArrayList<>();
     private String Username = null, Password = null;
 
     public static void main(String[] args){
@@ -189,6 +190,10 @@ public class Server implements Hello {
 
     public void addOnlineUser(User aux){
         userOnlines.add(aux);
+    }
+
+    public void addUserOnline(String aux){
+        usersOnlines.add(aux);
     }
 
     public void removeOnlineUser(User aux){
@@ -844,6 +849,12 @@ public class Server implements Hello {
         return "rip";
     }
 
+
+    public void saveWSInfo(String username, ClientHello interf) throws RemoteException {
+        User newUser = new User(username,interf);
+        userOnlines.add(newUser);
+    }
+
     ///////////// CRIAR!! /////////////
     public String createSongwriter(String name, String description){
         MulticastSocket socket = null;
@@ -1083,7 +1094,7 @@ public class Server implements Hello {
     }
 
     ///////////// TORNAR EDITOR /////////////
-    public String checkEditorMaking(String name){
+    public String checkEditorMaking(String name) throws RemoteException{
         MulticastSocket socket = null;
         //envia pra o multicast
         try {
@@ -1094,14 +1105,33 @@ public class Server implements Hello {
             byte[] buffer = aux.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
-            String msg = receiveMulticast();
-            return msg;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             socket.close();
         }
-        return "rip";
+        String msg = receiveMulticast();
+        System.out.println(msg + "antes do if");
+        if(msg.equals("type|makingEditorComplete")){
+            System.out.println("entrou na parte do server");
+            ClientHello aux2 = null;
+            System.out.println("entrei no if");
+            try {
+                for (int i=0;i<userOnlines.size();i++) {
+                    if (userOnlines.get(i).getUsername().equals(name)) {
+                        System.out.println("entrei noutro");
+                        aux2 = userOnlines.get(i).getInterface();
+                        System.out.println("criou interface client");
+                        break;
+                    }
+                }
+                aux2.msg(">> You are now an editor!");
+            } catch (NullPointerException e) { //o user ta off
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return msg;
     }
 
     ////////////// FAZER CRITICA /////////////

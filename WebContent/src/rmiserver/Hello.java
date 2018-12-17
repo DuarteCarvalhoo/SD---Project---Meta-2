@@ -45,6 +45,8 @@ public interface Hello extends Remote {
 
     void addOnlineUser(User aux) throws RemoteException;
 
+    void addUserOnline(String aux) throws RemoteException;
+
     void removeOnlineUser(User aux) throws RemoteException;
 
     String downloadMusicRMI(String direc) throws RemoteException;
@@ -142,4 +144,6 @@ public interface Hello extends Remote {
     String createMusic(String musicName, String artistName, String albumName, String composerName, String songwriterName, String musicLength, String user) throws RemoteException;
 
     String editMusic(String musicTitle, String oldTitle) throws RemoteException;
+
+    void saveWSInfo(String username, ClientHello interf) throws RemoteException;
 }
