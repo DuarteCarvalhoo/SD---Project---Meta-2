@@ -40,7 +40,6 @@ public class WebSocketAnnotation extends UnicastRemoteObject implements ClientHe
 
     @OnMessage
     public void receiveMessage(String message) throws RemoteException {
-    	sendMessage(message);
         Registry registry = null;
         try {
             registry = LocateRegistry.getRegistry(7000);
