@@ -276,4 +276,28 @@ public class Bean {
         }
         return response;
     }
+
+    public String editAlbumGenre(String albumName, String albumGenre) {
+        String response="";
+        try{
+            response = rmi.editAlbumGenre(albumName,albumGenre);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String editAlbumDescription(String albumChange, String albumDescription) {
+        String response="";
+        try{
+            response = rmi.editAlbumDescription(albumChange,albumDescription);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
 }

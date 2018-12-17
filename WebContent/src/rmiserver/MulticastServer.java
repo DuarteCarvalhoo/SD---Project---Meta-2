@@ -546,12 +546,12 @@ public class MulticastServer extends Thread implements Serializable {
                             if(albumDatabaseEmpty() || getAlbumIdByName(ANB[1])==0){
                                 if(albumDatabaseEmpty()){
                                     connection.close();
-                                    sendMsg("type|albumDatabaseEmpty");
+                                    sendMsg("failed");
                                     System.out.println("Album database empty.");
                                 }
                                 else{
                                     connection.close();
-                                    sendMsg("type|albumNotFound");
+                                    sendMsg("failed");
                                     System.out.println("Album not found.");
                                 }
                             }
@@ -564,7 +564,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 connection.commit();
                                 connection.close();
 
-                                sendMsg("type|descriptionChanged");
+                                sendMsg("worked");
                                 System.out.println("Description changed.");
                             }
                         }catch(org.postgresql.util.PSQLException e){
@@ -582,12 +582,12 @@ public class MulticastServer extends Thread implements Serializable {
                             if(albumDatabaseEmpty() || getAlbumIdByName(ANaB[1])==0){
                                 if(albumDatabaseEmpty()){
                                     connection.close();
-                                    sendMsg("type|albumDatabaseEmpty");
+                                    sendMsg("failed");
                                     System.out.println("Album database empty.");
                                 }
                                 else{
                                     connection.close();
-                                    sendMsg("type|albumNotFound");
+                                    sendMsg("worked");
                                     System.out.println("Album not found.");
                                 }
                             }
@@ -600,7 +600,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 connection.commit();
                                 connection.close();
 
-                                sendMsg("type|genreChanged");
+                                sendMsg("worked");
                                 System.out.println("Genre changed.");
                             }
                         }catch(org.postgresql.util.PSQLException e){
