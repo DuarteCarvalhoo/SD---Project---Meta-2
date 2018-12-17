@@ -252,4 +252,28 @@ public class Bean {
         }
         return response;
     }
+
+    public String editMusic(String musicTitle, String oldTitle) {
+        String response="";
+        try{
+            response = rmi.editMusic(musicTitle,oldTitle);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String editPublisher(String publisherName, String publisherChange) {
+        String response="";
+        try{
+            response = rmi.editPublisherName(publisherChange,publisherName);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
 }

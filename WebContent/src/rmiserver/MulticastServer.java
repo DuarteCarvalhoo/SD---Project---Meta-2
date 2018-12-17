@@ -920,6 +920,26 @@ public class MulticastServer extends Thread implements Serializable {
                             System.out.println("ERRO: Concert already exists.");
                         }
                         break;
+                    case "type|editMusic":
+                        connection = initConnection();
+                        String[] New = aux[1].split("\\|");
+                        String[] Old = aux[2].split("\\|");
+                        PreparedStatement stmtEditMusic = null;
+                        try{
+                            connection.setAutoCommit(false);
+                            stmtEditMusic = connection.prepareStatement("UPDATE music SET title=? WHERE title=?;");
+                            stmtEditMusic.setString(1,New[1]);
+                            stmtEditMusic.setString(2,Old[1]);
+                            stmtEditMusic.executeUpdate();
+
+                            connection.commit();
+                            stmtEditMusic.close();
+                            connection.close();
+                            sendMsg("worked");
+                        }catch(org.postgresql.util.PSQLException e){
+                            sendMsg("failed");
+                        }
+                        break;
                     case "type|createPublisher":
                         connection = initConnection();
                         String[] publisherName = aux[1].split("\\|");
@@ -1117,17 +1137,17 @@ public class MulticastServer extends Thread implements Serializable {
                             if(publisherDataBaseEmpty() || getPublisherById(PNameB[1])==0 || getPublisherById(PNameA[1])!=0){
                                 if(publisherDataBaseEmpty()){
                                     connection.close();
-                                    sendMsg("type|publisherDatabaseEmpty");
+                                    sendMsg("failed");
                                     System.out.println("Publisher database empty.");
                                 }
                                 else if(getPublisherById(PNameB[1])==0){
                                     connection.close();
-                                    sendMsg("type|publisherNotFound");
+                                    sendMsg("failed");
                                     System.out.println("Publisher not found.");
                                 }
                                 else{
                                     connection.close();
-                                    sendMsg("type|nameAlreadyTaken");
+                                    sendMsg("failed");
                                     System.out.println("Name already taken by another publisher.");
                                 }
                             }
@@ -1140,7 +1160,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 connection.commit();
                                 connection.close();
 
-                                sendMsg("type|nameChanged");
+                                sendMsg("worked");
                                 System.out.println("Name changed.");
                             }
                         }catch(org.postgresql.util.PSQLException e){
