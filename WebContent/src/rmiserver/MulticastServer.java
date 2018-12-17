@@ -927,7 +927,7 @@ public class MulticastServer extends Thread implements Serializable {
                         try {
                             if(checkPublisherExists(publisherName[1]) == 1){
                                 connection.close();
-                                sendMsg("type|publisherExists");
+                                sendMsg("failed");
                                 System.out.println("Publisher already exists.");
                             }
                             Publisher a = new Publisher(publisherName[1]);
@@ -943,10 +943,10 @@ public class MulticastServer extends Thread implements Serializable {
                             connection.commit();
                             connection.close();
                             System.out.println("Records created successfully");
-                            sendMsg("type|createPublisherComplete");
+                            sendMsg("worked");
 
                         }catch(org.postgresql.util.PSQLException e){
-                            sendMsg("type|somthingWentWrong");
+                            sendMsg("failed");
                             System.out.println("ERRO: Publisher already exists.");
                         }
                         break;
