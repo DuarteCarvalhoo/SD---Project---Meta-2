@@ -3,6 +3,7 @@ package model;
 import rmiserver.Hello;
 import rmiserver.User;
 
+import java.awt.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -139,6 +140,23 @@ public class Bean {
         return response;
     }
 
+    //create
+
+    public String createArtist(String name, String description, boolean songwriter, boolean composer, boolean band){
+        System.out.println("createp");
+        String response = "";
+        try{
+            response = rmi.createMusician(name, description, songwriter, composer, band);
+        } catch (RemoteException e) {
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+
+
+    //Make editor
     public String makeEditor(String name){
         String response = "";
         try{

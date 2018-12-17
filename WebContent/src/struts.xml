@@ -197,6 +197,31 @@
         <result name="rip">sww.jsp</result>
     </action>
 
+    <action name="createMenu">
+        <result>createMenu.jsp</result>
+    </action>
+
+    <action name="createArtistInput">
+        <result>createArtistInput.jsp</result>
+    </action>
+        
+    <action name="createArtist" class="action.CreateArtist" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">createArtistInput.jsp</result>
+    </action>
+
+    <action name="createPublisherInput">
+        <result>createPublisherInput.jsp</result>
+    </action>
+
+    <action name="createMusicInput">
+        <result>createMusicInput.jsp</result>
+    </action>
+
+    <action name="createAlbumInput">
+        <result>createAlbumInput.jsp</result>
+    </action>
 
     </package>
 </struts>
