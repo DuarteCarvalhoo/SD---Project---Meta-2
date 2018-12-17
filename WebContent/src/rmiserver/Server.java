@@ -800,6 +800,28 @@ public class Server implements Hello {
         return "rip";
     }
 
+
+    public String createMusic(String musicName, String artistName, String albumName, String composerName, String songwriterName, String musicLength, String user) throws RemoteException {
+        MulticastSocket socket = null;
+        //envia para o multicast
+        try {
+            socket = new MulticastSocket();
+            InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
+            socket.joinGroup(group);
+            String aux = "type|createMusic;Name|"+musicName+";Artist|"+artistName+";Album|"+albumName+";Composer|"+composerName+";Songwriter|"+songwriterName+";Band|"+musicLength; //protocol
+            byte[] buffer = aux.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
+            socket.send(packet);
+            String msg = receiveMulticast();
+            return msg;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            socket.close();
+        }
+        return "rip";
+    }
+
     ///////////// CRIAR!! /////////////
     public String createSongwriter(String name, String description){
         MulticastSocket socket = null;

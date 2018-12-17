@@ -33,6 +33,7 @@
         </select><br><br>
         <s:submit/>
     </s:form>
+    <p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>
 </head>
 <body>
 

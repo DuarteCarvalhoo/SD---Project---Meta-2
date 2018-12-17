@@ -154,7 +154,17 @@ public class Bean {
         return response;
     }
 
-
+    public String createMusic(String musicName, String artistName, String albumName, String composerName, String songwriterName, String musicLength, String user) {
+        System.out.println("createp");
+        String response = "";
+        try{
+            response = rmi.createMusic(musicName, artistName, albumName, composerName, songwriterName, musicLength, user);
+        } catch (RemoteException e) {
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
 
     //Make editor
     public String makeEditor(String name){
@@ -230,4 +240,5 @@ public class Bean {
         }
         return response;
     }
+
 }
