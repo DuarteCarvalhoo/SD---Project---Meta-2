@@ -86,6 +86,17 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 System.out.println("Insert valida data ('username-password')");
             }
         }
+        txt = rmi.checkRegisterClient(txt);
+        switch (txt){
+            case "type|usernameUsed":
+                System.out.println("That username already exists.");
+                break;
+            case "type|registComplete":
+                System.out.println("Successful register.");
+                break;
+            default:
+                System.out.println("Something went wrong.");
+        }
 
     }
 

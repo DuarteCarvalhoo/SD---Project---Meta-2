@@ -187,6 +187,32 @@ public class Server implements Hello {
         return "ups";
     }
 
+
+    public String checkRegisterClient(String register) throws RemoteException {
+        System.out.println("Está no registo.");
+        String[] newRegisto = register.split("-");
+        MulticastSocket socket = null;
+
+        try {
+            socket = new MulticastSocket();
+            InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
+            socket.joinGroup(group);
+            String aux = "type|register;username|" + newRegisto[0] + ";password|" + newRegisto[1]; //protocol
+            System.out.println(aux); //ver como ficou
+            byte[] buffer = aux.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
+            socket.send(packet);
+            //recebe do multicast
+            String msg = receiveMulticast();
+            if (msg != null) return msg;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            socket.close();
+        }
+        return "ups";
+    }
+
     public void removeOnlineUser(String user) {
         for(int i=0;i<userOnlines.size();i++){
             if(userOnlines.get(i).getUsername().equals(user)){

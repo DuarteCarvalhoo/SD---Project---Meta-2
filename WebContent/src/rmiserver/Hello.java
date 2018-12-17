@@ -43,6 +43,8 @@ public interface Hello extends Remote {
 
     String checkRegister(String username, String password) throws RemoteException;
 
+    String checkRegisterClient(String username) throws RemoteException;
+
     void addOnlineUser(User aux) throws RemoteException;
 
     void addUserOnline(String aux) throws RemoteException;
