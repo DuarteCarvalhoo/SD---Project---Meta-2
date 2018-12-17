@@ -822,6 +822,28 @@ public class Server implements Hello {
         return "rip";
     }
 
+
+    public String editMusic(String musicTitle, String oldTitle) throws RemoteException {
+        MulticastSocket socket = null;
+        //envia para o multicast
+        try {
+            socket = new MulticastSocket();
+            InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
+            socket.joinGroup(group);
+            String aux = "type|editMusic;Title|"+musicTitle+";OldTitle|"+oldTitle;
+            byte[] buffer = aux.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
+            socket.send(packet);
+            String msg = receiveMulticast();
+            return msg;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            socket.close();
+        }
+        return "rip";
+    }
+
     ///////////// CRIAR!! /////////////
     public String createSongwriter(String name, String description){
         MulticastSocket socket = null;

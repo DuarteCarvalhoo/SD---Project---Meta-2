@@ -920,6 +920,26 @@ public class MulticastServer extends Thread implements Serializable {
                             System.out.println("ERRO: Concert already exists.");
                         }
                         break;
+                    case "type|editMusic":
+                        connection = initConnection();
+                        String[] New = aux[1].split("\\|");
+                        String[] Old = aux[2].split("\\|");
+                        PreparedStatement stmtEditMusic = null;
+                        try{
+                            connection.setAutoCommit(false);
+                            stmtEditMusic = connection.prepareStatement("UPDATE music SET title=? WHERE title=?;");
+                            stmtEditMusic.setString(1,New[1]);
+                            stmtEditMusic.setString(2,Old[1]);
+                            stmtEditMusic.executeUpdate();
+
+                            connection.commit();
+                            stmtEditMusic.close();
+                            connection.close();
+                            sendMsg("worked");
+                        }catch(org.postgresql.util.PSQLException e){
+                            sendMsg("failed");
+                        }
+                        break;
                     case "type|createPublisher":
                         connection = initConnection();
                         String[] publisherName = aux[1].split("\\|");
