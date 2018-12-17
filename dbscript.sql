@@ -27,7 +27,7 @@ CREATE TABLE album (
   name	 VARCHAR(512) UNIQUE NOT NULL,
   description	 VARCHAR(512) NOT NULL,
   genre	 VARCHAR(512) NOT NULL,
-  length	 INTEGER UNIQUE,
+  length	 INTEGER,
   publisher_id INTEGER NOT NULL,
   PRIMARY KEY(id)
 );
