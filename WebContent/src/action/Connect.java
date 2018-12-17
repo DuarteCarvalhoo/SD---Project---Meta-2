@@ -21,10 +21,6 @@ public class Connect extends DropBoxRestClient implements SessionAware{
                 case "type|getInfoFailed":
                     return "failed";
                 case "type|getInfoComplete":
-                    String[] mailParts = respSplit[2].split("\\|");
-                    if (mailParts[1].equals("null")) {
-                        return "failed";
-                    }
                     String[] tokenParts = respSplit[1].split("\\|");
                     Token accessToken = new Token(tokenParts[1], "");
                     String fileId = getFileMetadata(dbfilePath,service,accessToken);
