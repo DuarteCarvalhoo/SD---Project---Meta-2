@@ -154,7 +154,17 @@ public class Bean {
         return response;
     }
 
-
+    public String createMusic(String musicName, String artistName, String albumName, String composerName, String songwriterName, String musicLength, String user) {
+        System.out.println("createp");
+        String response = "";
+        try{
+            response = rmi.createMusic(musicName, artistName, albumName, composerName, songwriterName, musicLength, user);
+        } catch (RemoteException e) {
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
 
     //Make editor
     public String makeEditor(String name){
@@ -223,6 +233,66 @@ public class Bean {
         String response="";
         try{
             response = rmi.checkKnownEmail(email);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String createPublisher(String publisherName){
+        String response="";
+        try{
+            response = rmi.createPublisher(publisherName);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String editMusic(String musicTitle, String oldTitle) {
+        String response="";
+        try{
+            response = rmi.editMusic(musicTitle,oldTitle);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String editPublisher(String publisherName, String publisherChange) {
+        String response="";
+        try{
+            response = rmi.editPublisherName(publisherChange,publisherName);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String editAlbumGenre(String albumName, String albumGenre) {
+        String response="";
+        try{
+            response = rmi.editAlbumGenre(albumName,albumGenre);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String editAlbumDescription(String albumChange, String albumDescription) {
+        String response="";
+        try{
+            response = rmi.editAlbumDescription(albumChange,albumDescription);
             return response;
         }catch (RemoteException e){
             response="rip";

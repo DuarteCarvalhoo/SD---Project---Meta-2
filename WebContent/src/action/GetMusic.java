@@ -11,20 +11,27 @@ import java.util.Map;
 public class GetMusic{
     private String url,dbfilePath;
     public String execute() throws Exception {
-        String[] pathParts = dbfilePath.split("/");
-        String folder = "";
-        String file = pathParts[pathParts.length-1];
-        for(int i=0;i<pathParts.length-1;i++){
-            if(i==pathParts.length-1){
-                folder+=pathParts[i];
-            }
-            else{
-                folder+=pathParts[i];
-                folder+="/";
-            }
+        String[] urll = this.dbfilePath.split(":");
+        if(urll[0].equals("https")){
+            url=this.dbfilePath;
+            return "redirect";
         }
-        url = "https://www.dropbox.com/home"+folder+"?preview="+file;
-        return "redirect";
+        else{
+            String[] pathParts = dbfilePath.split("/");
+            String folder = "";
+            String file = pathParts[pathParts.length-1];
+            for(int i=0;i<pathParts.length-1;i++){
+                if(i==pathParts.length-1){
+                    folder+=pathParts[i];
+                }
+                else{
+                    folder+=pathParts[i];
+                    folder+="/";
+                }
+            }
+            url = "https://www.dropbox.com/home"+folder+"?preview="+file;
+            return "redirect";
+        }
         }
 
     public String getUrl(){

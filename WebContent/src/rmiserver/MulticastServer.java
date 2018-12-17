@@ -436,6 +436,70 @@ public class MulticastServer extends Thread implements Serializable {
                         }
 
                         break;
+                    case "type|createMusic":
+                        try{
+                            connection = initConnection();
+                            String[] titleParts = aux[1].split("\\|");
+                            String[] composerParts = aux[4].split("\\|");
+                            String[] artistParts = aux[2].split("\\|");
+                            String[] sParts = aux[5].split("\\|");
+                            String[] durationParts = aux[6].split("\\|");
+                            String[] albumParts = aux[3].split("\\|");
+
+                            connection.setAutoCommit(false); // + " " +
+                            PreparedStatement stmtUpload = null;
+                            if(checkArtistExists(artistParts[1]) != 1 || checkIfSongwriterValid(sParts[1]) != 1 || checkIfComposerValid(composerParts[1]) != 1 || checkAlbumExists(albumParts[1]) != 1){
+                                sendMsg("failed");
+                            }
+                            else{
+                                stmtUpload = connection.prepareStatement("INSERT INTO music(id, title, length)"
+                                        + "VALUES(DEFAULT,?,?);");
+                                stmtUpload.setString(1,titleParts[1]);
+                                stmtUpload.setInt(2,Integer.parseInt(durationParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO album_music(album_id, music_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(1,getAlbumIdByName(albumParts[1]));
+                                stmtUpload.setInt(2,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO composer_music(artista_id, music_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(1,getArtistIdByName(composerParts[1]));
+                                stmtUpload.setInt(2,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO music_songwriter(music_id, artista_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(2,getArtistIdByName(sParts[1]));
+                                stmtUpload.setInt(1,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO artista_music(artista_id, music_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(1,getArtistIdByName(artistParts[1]));
+                                stmtUpload.setInt(2,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                int lengthA = getAlbumLengthById(getAlbumIdByName(albumParts[1]));
+                                int newLength = lengthA + Integer.parseInt(durationParts[1]);
+                                stmtUpload = connection.prepareStatement("UPDATE album SET length = ? WHERE id = ?;");
+                                stmtUpload.setInt(1,newLength);
+                                stmtUpload.setInt(2,getAlbumIdByName(albumParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload.close();
+                                connection.commit();
+                                connection.close();
+                                sendMsg("worked");
+                            }
+                        } catch(org.postgresql.util.PSQLException e){
+                            System.out.println(e.getMessage());
+                            sendMsg("failed");
+                        }
+
+                        break;
                     case "type|editAlbumName":
                         connection = initConnection();
                         connection.setAutoCommit(false);
@@ -482,12 +546,12 @@ public class MulticastServer extends Thread implements Serializable {
                             if(albumDatabaseEmpty() || getAlbumIdByName(ANB[1])==0){
                                 if(albumDatabaseEmpty()){
                                     connection.close();
-                                    sendMsg("type|albumDatabaseEmpty");
+                                    sendMsg("failed");
                                     System.out.println("Album database empty.");
                                 }
                                 else{
                                     connection.close();
-                                    sendMsg("type|albumNotFound");
+                                    sendMsg("failed");
                                     System.out.println("Album not found.");
                                 }
                             }
@@ -500,7 +564,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 connection.commit();
                                 connection.close();
 
-                                sendMsg("type|descriptionChanged");
+                                sendMsg("worked");
                                 System.out.println("Description changed.");
                             }
                         }catch(org.postgresql.util.PSQLException e){
@@ -518,12 +582,12 @@ public class MulticastServer extends Thread implements Serializable {
                             if(albumDatabaseEmpty() || getAlbumIdByName(ANaB[1])==0){
                                 if(albumDatabaseEmpty()){
                                     connection.close();
-                                    sendMsg("type|albumDatabaseEmpty");
+                                    sendMsg("failed");
                                     System.out.println("Album database empty.");
                                 }
                                 else{
                                     connection.close();
-                                    sendMsg("type|albumNotFound");
+                                    sendMsg("worked");
                                     System.out.println("Album not found.");
                                 }
                             }
@@ -536,7 +600,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 connection.commit();
                                 connection.close();
 
-                                sendMsg("type|genreChanged");
+                                sendMsg("worked");
                                 System.out.println("Genre changed.");
                             }
                         }catch(org.postgresql.util.PSQLException e){
@@ -856,6 +920,26 @@ public class MulticastServer extends Thread implements Serializable {
                             System.out.println("ERRO: Concert already exists.");
                         }
                         break;
+                    case "type|editMusic":
+                        connection = initConnection();
+                        String[] New = aux[1].split("\\|");
+                        String[] Old = aux[2].split("\\|");
+                        PreparedStatement stmtEditMusic = null;
+                        try{
+                            connection.setAutoCommit(false);
+                            stmtEditMusic = connection.prepareStatement("UPDATE music SET title=? WHERE title=?;");
+                            stmtEditMusic.setString(1,New[1]);
+                            stmtEditMusic.setString(2,Old[1]);
+                            stmtEditMusic.executeUpdate();
+
+                            connection.commit();
+                            stmtEditMusic.close();
+                            connection.close();
+                            sendMsg("worked");
+                        }catch(org.postgresql.util.PSQLException e){
+                            sendMsg("failed");
+                        }
+                        break;
                     case "type|createPublisher":
                         connection = initConnection();
                         String[] publisherName = aux[1].split("\\|");
@@ -863,7 +947,7 @@ public class MulticastServer extends Thread implements Serializable {
                         try {
                             if(checkPublisherExists(publisherName[1]) == 1){
                                 connection.close();
-                                sendMsg("type|publisherExists");
+                                sendMsg("failed");
                                 System.out.println("Publisher already exists.");
                             }
                             Publisher a = new Publisher(publisherName[1]);
@@ -879,10 +963,10 @@ public class MulticastServer extends Thread implements Serializable {
                             connection.commit();
                             connection.close();
                             System.out.println("Records created successfully");
-                            sendMsg("type|createPublisherComplete");
+                            sendMsg("worked");
 
                         }catch(org.postgresql.util.PSQLException e){
-                            sendMsg("type|somthingWentWrong");
+                            sendMsg("failed");
                             System.out.println("ERRO: Publisher already exists.");
                         }
                         break;
@@ -1053,17 +1137,17 @@ public class MulticastServer extends Thread implements Serializable {
                             if(publisherDataBaseEmpty() || getPublisherById(PNameB[1])==0 || getPublisherById(PNameA[1])!=0){
                                 if(publisherDataBaseEmpty()){
                                     connection.close();
-                                    sendMsg("type|publisherDatabaseEmpty");
+                                    sendMsg("failed");
                                     System.out.println("Publisher database empty.");
                                 }
                                 else if(getPublisherById(PNameB[1])==0){
                                     connection.close();
-                                    sendMsg("type|publisherNotFound");
+                                    sendMsg("failed");
                                     System.out.println("Publisher not found.");
                                 }
                                 else{
                                     connection.close();
-                                    sendMsg("type|nameAlreadyTaken");
+                                    sendMsg("failed");
                                     System.out.println("Name already taken by another publisher.");
                                 }
                             }
@@ -1076,7 +1160,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 connection.commit();
                                 connection.close();
 
-                                sendMsg("type|nameChanged");
+                                sendMsg("worked");
                                 System.out.println("Name changed.");
                             }
                         }catch(org.postgresql.util.PSQLException e){
