@@ -37,7 +37,7 @@
         <action name="register" class="action.Register" method="execute">
             <result name="success">login.jsp</result>
             <result name="invalidCredentials">index.jsp</result>
-            <result name="rip">sww.jsp</result>
+            <result name="rip">swwOut.jsp</result>
             <result name="usernameUsed">index.jsp</result>
         </action>
 
@@ -46,10 +46,14 @@
             <result>/login.jsp</result>
         </action>
 
+        <action name="logout" class="action.Logout" method="execute">
+            <result>index.jsp</result>
+        </action>
+
         <action name="checkLogin" class="action.Login" method="execute">
             <result name="failed">login.jsp</result>
             <result name="worked">menuPrincipal.jsp</result>
-            <result name="rip">sww.jsp</result>
+            <result name="rip">swwOut.jsp</result>
         </action>
 
     <!-- Main Menu -->
@@ -311,6 +315,15 @@
 
     <action name="createMenu">
         <result>createMenu.jsp</result>
+    </action>
+
+    <action name="searchMenu">
+        <result>search.jsp</result>
+    </action>
+
+    <action name="searchAlbumByArtist" class="action.SearchAlbumByArtist" method="execute">
+        <result name="worked">showAlbums.jsp</result>
+        <result name="rip">sww.jsp</result>
     </action>
 
     <action name="createAlbum" class="action.CreateAlbum" method="execute">

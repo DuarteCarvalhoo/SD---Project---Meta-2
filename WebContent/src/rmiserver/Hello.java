@@ -47,7 +47,7 @@ public interface Hello extends Remote {
 
     void addUserOnline(String aux) throws RemoteException;
 
-    void removeOnlineUser(User aux) throws RemoteException;
+    void removeOnlineUser(String aux) throws RemoteException;
 
     String downloadMusicRMI(String direc) throws RemoteException;
 
@@ -59,7 +59,7 @@ public interface Hello extends Remote {
 
     String checkLogin(String username, String password) throws RemoteException;
 
-    String checkLogout(User user) throws RemoteException;
+    void checkLogout(User user) throws RemoteException;
 
     String sendMusicRMI(String[] musicInfo, int loggedUser) throws RemoteException;
 

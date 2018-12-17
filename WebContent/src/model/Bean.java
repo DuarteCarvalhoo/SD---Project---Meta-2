@@ -330,4 +330,12 @@ public class Bean {
             e.printStackTrace();
         }
     }
+
+    public void removeUserOnline(String username) {
+        try{
+            rmi.removeOnlineUser(username);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 }

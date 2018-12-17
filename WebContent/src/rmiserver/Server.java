@@ -147,6 +147,15 @@ public class Server implements Hello {
         return "rip";
     }
 
+    @Override
+    public void checkLogout(User user) throws RemoteException {
+        for(int i=0;i<userOnlines.size();i++){
+            if(userOnlines.get(i).equals(user)){
+                userOnlines.remove(userOnlines.get(i));
+            }
+        }
+    }
+
     public String checkRegister(String username, String password) {
         System.out.println("Está no registo.");
         MulticastSocket socket = null;
@@ -178,14 +187,12 @@ public class Server implements Hello {
         return "ups";
     }
 
-    public String checkLogout(User user) {
-        for(User u : userOnlines){
-            if(u.getId() == user.getId()){
-                removeOnlineUser(u);
+    public void removeOnlineUser(String user) {
+        for(int i=0;i<userOnlines.size();i++){
+            if(userOnlines.get(i).getUsername().equals(user)){
+                userOnlines.remove(userOnlines.get(i));
             }
-            return "type|logoutComplete";
         }
-        return "type|logoutFail";
     }
 
     public void addOnlineUser(User aux){

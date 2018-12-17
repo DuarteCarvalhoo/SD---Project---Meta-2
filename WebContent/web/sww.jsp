@@ -58,6 +58,6 @@
 </head>
 <body>
 Something Went Wrong
-<p><a href="<s:url action="menuPrincipal" />">First Page</a></p>
+<p><a href="<s:url action="menuPrincipal" />">Main Menu</a></p>
 </body>
 </html>

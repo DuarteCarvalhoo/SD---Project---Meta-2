@@ -58,6 +58,6 @@
 </head>
 <body>
 You don't have editor permission.
-<p><a href="<s:url action="index" />">First Page</a></p>
+<p><a href="<s:url action="menuPrincipal" />">Main Menu</a></p>
 </body>
 </html>
