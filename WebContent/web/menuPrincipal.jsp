@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Dropmusic - Main Menu</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript">
 
         var websocket = null;

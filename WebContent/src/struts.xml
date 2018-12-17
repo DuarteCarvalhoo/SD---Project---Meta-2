@@ -79,19 +79,9 @@
         <result name="rip">sww.jsp</result>
     </action>
 
-    <action name="editPublisherName">
-        <result>editPublisherName.jsp</result>
-    </action>
-
     <!-- Search Music Menu -->
     <action name="searchMusicOptions">
         <result>searchMusicOptions.jsp</result>
-    </action>
-
-    <action name="editPublisher" class="action.EditPublisher" method="execute">
-        <result name="worked">menuPrincipal.jsp</result>
-        <result name="failed">editPublisherName.jsp</result>
-        <result name="rip">sww.jsp</result>
     </action>
 
         <!-- Create Music -->
@@ -319,32 +309,8 @@
                 <result>searchAlbumByArtistInfo.jsp</result>
             </action>
 
-    <action name="shareMusic">
-        <result>share.jsp</result>
-    </action>
-
-    <action name="share" class="action.Share" method="execute">
-        <result name="worked">menuPrincipal.jsp</result>
-        <result name="failed">sww.jsp</result>
-        <result name="rip">sww.jsp</result>
-    </action>
-
     <action name="createMenu">
         <result>createMenu.jsp</result>
-    </action>
-
-    <action name="createArtistInput">
-        <result>createArtistInput.jsp</result>
-    </action>
-        
-    <action name="createArtist" class="action.CreateArtist" method="execute">
-        <result name="worked">menuPrincipal.jsp</result>
-        <result name="failed">sww.jsp</result>
-        <result name="rip">createArtistInput.jsp</result>
-    </action>
-
-    <action name="createAlbumInput" >
-        <result>createAlbumInput.jsp</result>
     </action>
 
     <action name="createAlbum" class="action.CreateAlbum" method="execute">
