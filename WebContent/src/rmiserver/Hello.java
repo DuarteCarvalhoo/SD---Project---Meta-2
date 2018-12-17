@@ -138,4 +138,6 @@ public interface Hello extends Remote {
     String connectMusicFile(String musicName, String dbFileId) throws RemoteException;
 
     String checkKnownEmail(String email) throws RemoteException;
+
+    String createMusic(String musicName, String artistName, String albumName, String composerName, String songwriterName, String musicLength, String user) throws RemoteException;
 }

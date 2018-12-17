@@ -46,6 +46,16 @@
         <result name="success">menuPrincipal.jsp</result>
     </action>
 
+    <action name="createMusicInput">
+        <result>createMusicInput.jsp</result>
+    </action>
+
+    <action name="createMusic" class="action.CreateMusic" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">createMusicInput.action</result>
+    </action>
+
     <action name="playBrowser" class="action.GetMusic" method="execute">
         <result name="redirect" type="redirect">${url}</result>
     </action>
@@ -213,10 +223,6 @@
 
     <action name="createPublisherInput">
         <result>createPublisherInput.jsp</result>
-    </action>
-
-    <action name="createMusicInput">
-        <result>createMusicInput.jsp</result>
     </action>
 
     <action name="createAlbumInput">

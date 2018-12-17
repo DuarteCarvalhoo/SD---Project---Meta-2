@@ -436,6 +436,70 @@ public class MulticastServer extends Thread implements Serializable {
                         }
 
                         break;
+                    case "type|createMusic":
+                        try{
+                            connection = initConnection();
+                            String[] titleParts = aux[1].split("\\|");
+                            String[] composerParts = aux[4].split("\\|");
+                            String[] artistParts = aux[2].split("\\|");
+                            String[] sParts = aux[5].split("\\|");
+                            String[] durationParts = aux[6].split("\\|");
+                            String[] albumParts = aux[3].split("\\|");
+
+                            connection.setAutoCommit(false); // + " " +
+                            PreparedStatement stmtUpload = null;
+                            if(checkArtistExists(artistParts[1]) != 1 || checkIfSongwriterValid(sParts[1]) != 1 || checkIfComposerValid(composerParts[1]) != 1 || checkAlbumExists(albumParts[1]) != 1){
+                                sendMsg("failed");
+                            }
+                            else{
+                                stmtUpload = connection.prepareStatement("INSERT INTO music(id, title, length)"
+                                        + "VALUES(DEFAULT,?,?);");
+                                stmtUpload.setString(1,titleParts[1]);
+                                stmtUpload.setInt(2,Integer.parseInt(durationParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO album_music(album_id, music_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(1,getAlbumIdByName(albumParts[1]));
+                                stmtUpload.setInt(2,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO composer_music(artista_id, music_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(1,getArtistIdByName(composerParts[1]));
+                                stmtUpload.setInt(2,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO music_songwriter(music_id, artista_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(2,getArtistIdByName(sParts[1]));
+                                stmtUpload.setInt(1,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload = connection.prepareStatement("INSERT INTO artista_music(artista_id, music_id)"
+                                        + "VALUES(?,?);");
+                                stmtUpload.setInt(1,getArtistIdByName(artistParts[1]));
+                                stmtUpload.setInt(2,getMusicIdByName(titleParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                int lengthA = getAlbumLengthById(getAlbumIdByName(albumParts[1]));
+                                int newLength = lengthA + Integer.parseInt(durationParts[1]);
+                                stmtUpload = connection.prepareStatement("UPDATE album SET length = ? WHERE id = ?;");
+                                stmtUpload.setInt(1,newLength);
+                                stmtUpload.setInt(2,getAlbumIdByName(albumParts[1]));
+                                stmtUpload.executeUpdate();
+
+                                stmtUpload.close();
+                                connection.commit();
+                                connection.close();
+                                sendMsg("worked");
+                            }
+                        } catch(org.postgresql.util.PSQLException e){
+                            System.out.println(e.getMessage());
+                            sendMsg("failed");
+                        }
+
+                        break;
                     case "type|editAlbumName":
                         connection = initConnection();
                         connection.setAutoCommit(false);
