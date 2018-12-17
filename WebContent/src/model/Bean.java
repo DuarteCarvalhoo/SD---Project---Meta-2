@@ -241,4 +241,15 @@ public class Bean {
         return response;
     }
 
+    public String createPublisher(String publisherName){
+        String response="";
+        try{
+            response = rmi.createPublisher(publisherName);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
 }

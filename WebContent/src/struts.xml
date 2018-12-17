@@ -53,7 +53,17 @@
     <action name="createMusic" class="action.CreateMusic" method="execute">
         <result name="worked">menuPrincipal.jsp</result>
         <result name="failed">sww.jsp</result>
-        <result name="rip">createMusicInput.action</result>
+        <result name="rip">createMusicInput.jsp</result>
+    </action>
+
+    <action name="createPublisherInput">
+        <result>createPublisherInput.jsp</result>
+    </action>
+
+    <action name="createPublisher" class="action.CreatePublisher" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">createPublisherInput.jsp</result>
     </action>
 
     <action name="playBrowser" class="action.GetMusic" method="execute">
@@ -219,10 +229,6 @@
         <result name="worked">menuPrincipal.jsp</result>
         <result name="failed">sww.jsp</result>
         <result name="rip">createArtistInput.jsp</result>
-    </action>
-
-    <action name="createPublisherInput">
-        <result>createPublisherInput.jsp</result>
     </action>
 
     <action name="createAlbumInput">
