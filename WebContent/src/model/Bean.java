@@ -3,7 +3,6 @@ package model;
 import rmiserver.Hello;
 import rmiserver.User;
 
-import java.awt.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -322,5 +321,13 @@ public class Bean {
             System.out.println(e.getMessage());
         }
         return response;
+    }
+
+    public void addUserOnline(String username) {
+        try{
+            rmi.addUserOnline(username);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

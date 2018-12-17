@@ -109,7 +109,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 System.out.println("Insert your login('username-password'):");
             }
         }
-        /*String txt = rmi.checkLogin(userData);
+        String txt = rmi.checkLogin(userDataParts[0],userDataParts[1]);
         String[] txtSplit = txt.split(";");
         switch (txtSplit[0].trim()){
             case "type|loginComplete":
@@ -130,7 +130,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 break;
             default:
                 System.out.println("Something went wrong.");
-        }*/
+        }
     }
 
     public static void logout(Hello rmi) throws RemoteException{
@@ -1757,7 +1757,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
             }
         }
 
-        /*String response = rmi.checkEditorMaking(name, rmi);
+        String response = rmi.checkEditorMaking(name);
         switch (response.trim()){
             case "type|makingEditorComplete":
                 System.out.println(name +" is now an editor.");
@@ -1767,7 +1767,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 break;
             default:
                 System.out.println("Something went wrong.");
-        }*/
+        }
     }
 
             ////////////// FAZER UMA CRITICA /////////////

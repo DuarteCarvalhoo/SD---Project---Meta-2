@@ -136,4 +136,9 @@ public class User implements Serializable{
         this.password = "none";
     }
 
+    public User(String username, ClientHello interf){
+        this.username = username;
+        this.clientInterface = interf;
+    }
+
 }
