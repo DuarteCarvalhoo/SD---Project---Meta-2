@@ -56,6 +56,21 @@
         <result name="rip">createMusicInput.jsp</result>
     </action>
 
+    <action name="editPublisherName">
+        <result>editPublisherName.jsp</result>
+    </action>
+
+    <action name="editPublisherMenu" class="action.EditPublisherMenu" method="execute">
+        <result name="worked">editPublisherMenu.jsp</result>
+        <result name="failed">editPublisherName.jsp</result>
+    </action>
+
+    <action name="editPublisher" class="action.EditPublisher" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">editPublisherName.jsp</result>
+    </action>
+
     <action name="editMusicName">
         <result>editMusicName.jsp</result>
     </action>

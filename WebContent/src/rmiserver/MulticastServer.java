@@ -1137,17 +1137,17 @@ public class MulticastServer extends Thread implements Serializable {
                             if(publisherDataBaseEmpty() || getPublisherById(PNameB[1])==0 || getPublisherById(PNameA[1])!=0){
                                 if(publisherDataBaseEmpty()){
                                     connection.close();
-                                    sendMsg("type|publisherDatabaseEmpty");
+                                    sendMsg("failed");
                                     System.out.println("Publisher database empty.");
                                 }
                                 else if(getPublisherById(PNameB[1])==0){
                                     connection.close();
-                                    sendMsg("type|publisherNotFound");
+                                    sendMsg("failed");
                                     System.out.println("Publisher not found.");
                                 }
                                 else{
                                     connection.close();
-                                    sendMsg("type|nameAlreadyTaken");
+                                    sendMsg("failed");
                                     System.out.println("Name already taken by another publisher.");
                                 }
                             }
@@ -1160,7 +1160,7 @@ public class MulticastServer extends Thread implements Serializable {
                                 connection.commit();
                                 connection.close();
 
-                                sendMsg("type|nameChanged");
+                                sendMsg("worked");
                                 System.out.println("Name changed.");
                             }
                         }catch(org.postgresql.util.PSQLException e){

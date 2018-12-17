@@ -264,4 +264,16 @@ public class Bean {
         }
         return response;
     }
+
+    public String editPublisher(String publisherName, String publisherChange) {
+        String response="";
+        try{
+            response = rmi.editPublisherName(publisherChange,publisherName);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
 }
