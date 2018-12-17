@@ -58,8 +58,6 @@
     </script>
 <body>
         <h1>Main Menu</h1><br><br>
-        <p><a href="<s:url action="teste" />">Search</a></p>
-        <div id="container"><div id="history"></div></div>
         <p><a href="<s:url action="searchMenu" />">Search</a></p>
         <p><a href="<s:url action="editorMenu" />">Edit</a></p>
         <p><a href="<s:url action="linkCritic" />">Make a Critic</a></p>
