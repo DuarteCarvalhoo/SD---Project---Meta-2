@@ -166,6 +166,17 @@ public class Bean {
         return response;
     }
 
+    public String createAlbum(String albumName, String albumDescripton, String albumGenre, String albumArtist, String albumPublisher){
+        String response="";
+        try{
+            response = rmi.createAlbum(albumName,albumGenre,albumDescripton,albumArtist,albumPublisher);
+        } catch (RemoteException e) {
+            response = "something";
+            e.printStackTrace();
+        }
+        return response;
+    }
+
     //Make editor
     public String makeEditor(String name){
         String response = "";
@@ -269,6 +280,18 @@ public class Bean {
         String response="";
         try{
             response = rmi.editPublisherName(publisherChange,publisherName);
+            return response;
+        }catch (RemoteException e){
+            response="rip";
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    public String editArtist(String artistName, String artistChange) {
+        String response="";
+        try{
+            response = rmi.editArtistName(artistName,artistChange);
             return response;
         }catch (RemoteException e){
             response="rip";

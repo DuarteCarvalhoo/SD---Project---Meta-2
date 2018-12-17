@@ -832,7 +832,7 @@ public class MulticastServer extends Thread implements Serializable {
 
                                 System.out.println("0");
                                 stmtAlbum = connection.prepareStatement("INSERT INTO album(id,name,genre,description,length,publisher_id)"
-                                        + "VALUES (DEFAULT,?,?,?,0,?);");
+                                        + "VALUES (DEFAULT,?,?,?,1,?);");
                                 stmtAlbum.setString(1,namePa[1]);
                                 stmtAlbum.setString(2,gParts[1]);
                                 stmtAlbum.setString(3,descripParts[1]);

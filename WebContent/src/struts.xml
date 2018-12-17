@@ -56,6 +56,21 @@
         <result name="rip">createMusicInput.jsp</result>
     </action>
 
+    <action name="editArtistName">
+        <result>editArtistName.jsp</result>
+    </action>
+
+    <action name="editArtistMenu" class="action.EditArtistMenu" method="execute">
+        <result name="worked">editArtistMenu.jsp</result>
+        <result name="failed">editArtistName.jsp</result>
+    </action>
+
+    <action name="editArtist" class="action.EditArtist" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">editArtistName.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
+
     <action name="editPublisherName">
         <result>editPublisherName.jsp</result>
     </action>
@@ -67,8 +82,8 @@
 
     <action name="editPublisher" class="action.EditPublisher" method="execute">
         <result name="worked">menuPrincipal.jsp</result>
-        <result name="failed">sww.jsp</result>
-        <result name="rip">editPublisherName.jsp</result>
+        <result name="failed">editPublisherName.jsp</result>
+        <result name="rip">sww.jsp</result>
     </action>
 
     <action name="editAlbumName">
@@ -280,8 +295,14 @@
         <result name="rip">createArtistInput.jsp</result>
     </action>
 
-    <action name="createAlbumInput">
+    <action name="createAlbumInput" >
         <result>createAlbumInput.jsp</result>
+    </action>
+
+    <action name="createAlbum" class="action.CreateAlbum" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">createAlbumInput.jsp</result>
     </action>
 
     </package>
