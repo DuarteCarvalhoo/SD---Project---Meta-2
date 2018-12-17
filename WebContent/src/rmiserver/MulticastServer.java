@@ -2039,7 +2039,7 @@ public class MulticastServer extends Thread implements Serializable {
 
     private Connection initConnection() {
         try{
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BD/SD","postgres", "fabiogc1998");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BD/SD","postgres", "1717");
         } catch (SQLException e) {
             e.printStackTrace();
         }
