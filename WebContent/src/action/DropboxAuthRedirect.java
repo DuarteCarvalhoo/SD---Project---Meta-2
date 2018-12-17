@@ -27,7 +27,6 @@ public class DropboxAuthRedirect extends DropBoxRestClient implements SessionAwa
             if(session.get("username")==null){
                 String email = getCurrentAccountMail(service,accessToken);
                 String response = this.getBean().checkKnownEmail(email);
-                System.out.println(response);
                 String[] responseSplit = response.split(";");
                 switch(responseSplit[0]){
                     case "type|accountExists":
