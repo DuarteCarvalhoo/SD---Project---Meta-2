@@ -71,6 +71,21 @@
         <result name="rip">editPublisherName.jsp</result>
     </action>
 
+    <action name="editAlbumName">
+        <result>editAlbumName.jsp</result>
+    </action>
+
+    <action name="editAlbumMenu" class="action.EditAlbumMenu" method="execute">
+        <result name="worked">editAlbumMenu.jsp</result>
+        <result name="failed">editAlbumName.jsp</result>
+    </action>
+
+    <action name="editAlbum" class="action.EditAlbum" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">editAlbumName.jsp</result>
+    </action>
+
     <action name="editMusicName">
         <result>editMusicName.jsp</result>
     </action>
