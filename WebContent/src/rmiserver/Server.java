@@ -383,31 +383,7 @@ public class Server implements Hello {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
             socket.send(packet);
             msg = receiveMulticast();
-            if(msg.equals("type|artistChanged")){
-                ClientHello aux2 = null;
-                try {
-                    for(int i=0;i<userOnlines.size();i++) {
-                        if(userOnlines.get(i).getUsername().equals("null")){
-                            System.out.println("wtf is wrong with u");
-                        }
-                        else{
-                            String isEditor = isEditor(userOnlines.get(i).getUsername());
-                            if(isEditor.equals("type|isEditor")){
-                                System.out.println("entrei noutro");
-                                aux2 = userOnlines.get(i).getInterface();
-                                System.out.println("criou interface client");
-                                aux2.msg(">> "+artistNameBefore+"editable attributes changed!");
-                                System.out.println("message sent");
-                                return msg;
-                            }
-                        }
-                    }
-                } catch (NullPointerException e) { //o user ta off
-                    return msg;
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
+            return msg;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
