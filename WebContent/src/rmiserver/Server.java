@@ -370,6 +370,54 @@ public class Server implements Hello {
         return null;
     }
 
+    public String editArtistWeb(String artistNameBefore, String artistNameafter, String descriptionAfter) throws RemoteException {
+        MulticastSocket socket = null;
+        String msg = "";
+        //envia para o multicast
+        try {
+            socket = new MulticastSocket();
+            InetAddress group = InetAddress.getByName(MULTICAST_ADDRESS);
+            socket.joinGroup(group);
+            String aux = "type|editArtistWeb;NameBefore|"+artistNameBefore+";NameAfter|"+artistNameafter+";DescriptionAfter|"+descriptionAfter; //protocol
+            byte[] buffer = aux.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
+            socket.send(packet);
+            msg = receiveMulticast();
+            if(msg.equals("type|artistChanged")){
+                ClientHello aux2 = null;
+                try {
+                    for(int i=0;i<userOnlines.size();i++) {
+                        if(userOnlines.get(i).getUsername().equals("null")){
+                            System.out.println("wtf is wrong with u");
+                        }
+                        else{
+                            String isEditor = isEditor(userOnlines.get(i).getUsername());
+                            if(isEditor.equals("type|isEditor")){
+                                System.out.println("entrei noutro");
+                                aux2 = userOnlines.get(i).getInterface();
+                                System.out.println("criou interface client");
+                                aux2.msg(">> "+artistNameBefore+"editable attributes changed!");
+                                System.out.println("message sent");
+                                return msg;
+                            }
+                        }
+                    }
+                } catch (NullPointerException e) { //o user ta off
+                    return msg;
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            socket.close();
+        }
+
+        //recebe do multicast
+        return msg;
+    }
+
     public String editArtistType(String name, String newGenre){
         MulticastSocket socket = null;
         //envia para o multicast
@@ -884,8 +932,13 @@ public class Server implements Hello {
 
 
     public void saveWSInfo(String username, ClientHello interf) throws RemoteException {
+        for(int i=0;i<userOnlines.size();i++){
+            if(userOnlines.get(i).getUsername().equals(username) || username == null){
+                return;
+            }
+        }
         User newUser = new User(username,interf);
-        userOnlines.add(newUser);
+        addOnlineUser(newUser);
     }
 
     ///////////// CRIAR!! /////////////

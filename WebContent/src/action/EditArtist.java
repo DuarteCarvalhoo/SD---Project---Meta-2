@@ -9,13 +9,15 @@ import java.util.Map;
 public class EditArtist extends ActionSupport implements SessionAware {
     private String artistName=null;
     Map<String, Object> session;
+    private String descriptionName = null;
+
     public String execute() throws Exception {
         if((this.artistName != null && !artistName.equals(""))) {
-            String response = this.getBean().editArtist(session.get("artistChange").toString(),artistName);
+            String response = this.getBean().editArtist(session.get("artistChange").toString(),artistName,descriptionName);
             if(response.equals("type|somethingWentWrong")){
                 return "rip";
             }
-            else if(response.equals("type|nameChanged")){
+            else if(response.equals("type|artistChanged")){
                 return "worked";
             }
             else {
@@ -42,5 +44,9 @@ public class EditArtist extends ActionSupport implements SessionAware {
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
+    }
+
+    public void setDescriptionName(String descriptionName) {
+        this.descriptionName = descriptionName;
     }
 }

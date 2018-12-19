@@ -43,11 +43,12 @@ public class WebSocketAnnotation extends UnicastRemoteObject implements ClientHe
         Registry registry = null;
         try {
             registry = LocateRegistry.getRegistry(7000);
+            //registry = LocateRegistry.getRegistry("10.42.0.43",7000);
             this.rmi =(Hello) registry.lookup("Hello");
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
-        rmi.saveWSInfo(message,this);
+        this.rmi.saveWSInfo(message,this);
 
     }
     

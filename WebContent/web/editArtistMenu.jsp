@@ -71,6 +71,8 @@
 <s:form action="editArtist" method="post">
     <s:text name="Name:"/>
     <s:textfield name="artistName" value="%{#session.artistChange}"/><br><br>
+    <s:text name="Description:"/>
+    <s:textfield name="descriptionName" value="%{#session.descriptionChange}"/><br><br>
     <s:submit/>
 </s:form>
 <p><a href="<s:url action="menuPrincipal" />">Menu Principal</a></p>

@@ -287,10 +287,10 @@ public class Bean {
         return response;
     }
 
-    public String editArtist(String artistName, String artistChange) {
+    public String editArtist(String artistName, String artistNameAfter, String artistDescriptionAfter) {
         String response="";
         try{
-            response = rmi.editArtistName(artistName,artistChange);
+            response = rmi.editArtistWeb(artistName,artistNameAfter,artistDescriptionAfter);
             return response;
         }catch (RemoteException e){
             response="rip";
@@ -321,14 +321,6 @@ public class Bean {
             System.out.println(e.getMessage());
         }
         return response;
-    }
-
-    public void addUserOnline(String username) {
-        try{
-            rmi.addUserOnline(username);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
     }
 
     public void removeUserOnline(String username) {

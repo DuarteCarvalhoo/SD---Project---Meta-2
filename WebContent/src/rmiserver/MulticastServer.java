@@ -1036,6 +1036,52 @@ public class MulticastServer extends Thread implements Serializable {
                             sendMsg("type|somethingWentWrong");
                         }
                         break;
+                    case "type|editArtistWeb":
+                        connection = initConnection();
+                        connection.setAutoCommit(false);
+                        String[] nameBef = aux[1].split("\\|");
+                        String[] nameAft = aux[2].split("\\|");
+                        String[] DescAft = aux[2].split("\\|");
+
+                        try{
+                            if(artistDataBaseEmpty() || getArtistIdByName(nameBef[1])==0 || getArtistIdByName(nameAft[1])==1){
+                                if(artistDataBaseEmpty()){
+                                    connection.close();
+                                    sendMsg("type|artistDatabaseEmpty");
+                                    System.out.println("Artist database empty.");
+                                }
+                                else if(getArtistIdByName(nameBef[1])==0){
+                                    connection.close();
+                                    sendMsg("type|artistNotFound");
+                                    System.out.println("Artist not found.");
+                                }
+                                else{
+                                    connection.close();
+                                    sendMsg("type|nameAlreadyTaken");
+                                    System.out.println("There's already an artist with that name.");
+                                }
+                            }
+                            else{
+                                PreparedStatement stmtEditName = connection.prepareStatement("UPDATE artista SET name = ? WHERE name =?;");
+                                stmtEditName.setString(1,nameAft[1]);
+                                stmtEditName.setString(2,nameBef[1]);
+                                stmtEditName.executeUpdate();
+
+                                stmtEditName = connection.prepareStatement("UPDATE artista SET description = ? WHERE name =?;");
+                                stmtEditName.setString(1,DescAft[1]);
+                                stmtEditName.setString(2,nameBef[1]);
+                                stmtEditName.executeUpdate();
+
+                                connection.commit();
+                                connection.close();
+                                sendMsg("type|artistChanged");
+                                System.out.println("Artist changed.");
+                            }
+                        }catch(org.postgresql.util.PSQLException e){
+                            System.out.println("Something went wrong.");
+                            sendMsg("type|somethingWentWrong");
+                        }
+                        break;
                     case "type|editArtistType":
                         connection = initConnection();
                         connection.setAutoCommit(false);

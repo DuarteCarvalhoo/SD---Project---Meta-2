@@ -19,7 +19,6 @@ public class Login extends ActionSupport implements SessionAware {
             this.getBean().setPassword(this.password);
             session.put("username",username);
             String response = this.getBean().getUserMatchesPassword();
-            this.getBean().addUserOnline(this.username);
             String[] respSplit = response.split(";");
             switch(respSplit[0]){
                 case "type|loginFail":
