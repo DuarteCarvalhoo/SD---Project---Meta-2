@@ -182,6 +182,7 @@
 
         <action name="connect" class="action.Connect" method="execute">
             <result name="success">menuPrincipal.jsp</result>
+            <result name="failed">sww.jsp</result>
             <result name="rip">sww.jsp</result>
         </action>
 

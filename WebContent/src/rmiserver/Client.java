@@ -126,8 +126,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
             case "type|loginComplete":
                 String[] id = txtSplit[1].split("\\|");
                 String[] editor = txtSplit[2].split("\\|");
-                loggedUser = new User(Integer.parseInt(id[1]),userDataParts[0],Boolean.parseBoolean(editor[1]));
-                loggedUser.setClientInterface(client);
+                loggedUser = new User(userDataParts[0],client,"client");
                 System.out.println("Welcome!");
 
                 rmi.addOnlineUser(loggedUser);
@@ -250,7 +249,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                         menuPlaylist(rmi,reader);
                         break;
                     case "/edit":
-                        if(loggedUser.isEditor()){
+                        if(isEditor(rmi,loggedUser)){
                             editorMenu(rmi, reader);
                         }
                         else{
@@ -261,7 +260,7 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                         logout(rmi);
                         return;
                     case "/makeeditor":
-                        if(loggedUser.isEditor()){
+                        if(isEditor(rmi,loggedUser)){
                             makeEditor(rmi,reader);
                         }
                         else{
@@ -322,6 +321,20 @@ public class Client extends UnicastRemoteObject implements ClientHello {
                 rmi = changeRMI();
             }
         }
+    }
+
+    private static boolean isEditor(Hello rmi, User loggedUser) {
+            String response="";
+            try{
+                response = rmi.isEditor(loggedUser.getUsername());
+                if(response.equals("type|isEditor")){
+                    return true;
+                }
+            }catch (RemoteException e){
+                response="rip";
+                System.out.println(e.getMessage());
+            }
+            return false;
     }
 
     private static void menuPlaylist(Hello rmi, Scanner reader) throws RemoteException {
@@ -770,23 +783,18 @@ public class Client extends UnicastRemoteObject implements ClientHello {
 
     ////////////// MENU DE EDITOR COM AS SUAS FUNÇÕES INICIAIS/////////////
     public static void editorMenu(Hello rmi, Scanner reader) throws RemoteException{
-        if(!loggedUser.isEditor()){
-            System.out.println("You don't have permission to do this.");
-        }
-        else{
-            System.out.println("What do you want to do: Create, Edit?");
-            String response = reader.nextLine();
-            switch (response.trim()){
-                case "/create":
-                    createMenu(rmi,reader);
-                    break;
-                case "/edit":
-                    editMenu(rmi,reader);
-                    break;
-                default:
-                    System.out.println("Insert a valid answer.");
-                    break;
-            }
+        System.out.println("What do you want to do: Create, Edit?");
+        String response = reader.nextLine();
+        switch (response.trim()){
+            case "/create":
+                createMenu(rmi,reader);
+                break;
+            case "/edit":
+                editMenu(rmi,reader);
+                break;
+            default:
+                System.out.println("Insert a valid answer.");
+                break;
         }
     }
 

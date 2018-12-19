@@ -149,5 +149,5 @@ public interface Hello extends Remote {
 
     String editMusic(String musicTitle, String oldTitle) throws RemoteException;
 
-    void saveWSInfo(String username, ClientHello interf) throws RemoteException;
+    void saveWSInfo(String username, ClientHello interf, String from) throws RemoteException;
 }

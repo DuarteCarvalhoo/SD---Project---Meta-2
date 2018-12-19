@@ -11,6 +11,7 @@ public class User implements Serializable{
     private ClientHello clientInterface;
     private ArrayList<String> downloadableMusics = new ArrayList<>();
     private ArrayList<String> notifications = new ArrayList<>();
+    private String from;
 
     public void setClientInterface(ClientHello aux){
         clientInterface = aux;
@@ -136,9 +137,13 @@ public class User implements Serializable{
         this.password = "none";
     }
 
-    public User(String username, ClientHello interf){
+    public User(String username, ClientHello interf, String from){
         this.username = username;
         this.clientInterface = interf;
+        this.from = from;
     }
 
+    public String getFrom() {
+        return from;
+    }
 }

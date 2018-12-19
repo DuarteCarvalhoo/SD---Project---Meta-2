@@ -322,9 +322,9 @@ public class MulticastServer extends Thread implements Serializable {
                         }else{
                             try{
                                 connection.setAutoCommit(false);
-                                PreparedStatement stmtConnect = connection.prepareStatement("UPDATE filearchive SET dbfile_id = ? WHERE music_id = ?;");
+                                PreparedStatement stmtConnect = connection.prepareStatement("UPDATE music SET dbfile_id = ? WHERE title = ?;");
                                 stmtConnect.setString(1,partsDb[1]);
-                                stmtConnect.setInt(2,musicd);
+                                stmtConnect.setString(2,partsMusic[1]);
                                 stmtConnect.executeUpdate();
 
                                 stmtConnect.close();

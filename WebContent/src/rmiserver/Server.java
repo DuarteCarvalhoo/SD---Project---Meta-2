@@ -907,13 +907,15 @@ public class Server implements Hello {
     }
 
 
-    public void saveWSInfo(String username, ClientHello interf) throws RemoteException {
+    public void saveWSInfo(String username, ClientHello interf, String from) throws RemoteException {
         for(int i=0;i<userOnlines.size();i++){
-            if(userOnlines.get(i).getUsername().equals(username) || username == null){
-                return;
+            if(userOnlines.get(i).getUsername().equals(username)){
+                if(userOnlines.get(i).getFrom().equals(from)){
+                    return;
+                }
             }
         }
-        User newUser = new User(username,interf);
+        User newUser = new User(username,interf,"web");
         addOnlineUser(newUser);
     }
 
@@ -1180,14 +1182,16 @@ public class Server implements Hello {
             System.out.println("entrei no if");
             try {
                 for (int i=0;i<userOnlines.size();i++) {
+                    System.out.println(userOnlines.get(i).getUsername());
+                    System.out.println(userOnlines.get(i).getInterface());
+                    System.out.println("\n\n");
                     if (userOnlines.get(i).getUsername().equals(name)) {
                         System.out.println("entrei noutro");
                         aux2 = userOnlines.get(i).getInterface();
                         System.out.println("criou interface client");
-                        break;
+                        aux2.msg(">> You are now an editor!");
                     }
                 }
-                aux2.msg(">> You are now an editor!");
             } catch (NullPointerException e) { //o user ta off
             } catch (RemoteException e) {
                 e.printStackTrace();

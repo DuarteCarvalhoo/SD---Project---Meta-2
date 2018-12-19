@@ -13,6 +13,7 @@ CREATE TABLE music (
   id	 SERIAL,
   title	 VARCHAR(512) NOT NULL,
   length INTEGER NOT NULL,
+  dbfile_id VARCHAR(512),
   PRIMARY KEY(id)
 );
 
@@ -63,7 +64,6 @@ CREATE TABLE filearchive (
   path		 VARCHAR(512) NOT NULL,
   utilizador_id INTEGER,
   music_id	 INTEGER,
-  dbfile_id VARCHAR(512),
   PRIMARY KEY(utilizador_id,music_id)
 );
 

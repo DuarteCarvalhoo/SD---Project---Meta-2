@@ -48,7 +48,7 @@ public class WebSocketAnnotation extends UnicastRemoteObject implements ClientHe
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
-        this.rmi.saveWSInfo(message,this);
+        this.rmi.saveWSInfo(message,this, "web");
 
     }
     
